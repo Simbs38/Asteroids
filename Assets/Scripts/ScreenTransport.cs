@@ -4,7 +4,7 @@ public class ScreenTransport : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.parent.name != "Floor")
+        if(other.transform.parent == null || other.transform.parent.name != "Floor")
             return;
 
         Camera camera = Camera.main;
