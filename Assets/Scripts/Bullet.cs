@@ -7,5 +7,13 @@ public class Bullet : MonoBehaviour
 
     private void Update() => transform.position += Direction * BulletSpeed;
 
-    private void OnTriggerEnter() => Destroy(gameObject);
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<ShipMovement>() != null)
+        {
+            Main.Instance.HitTaken();
+        }
+
+        Destroy(gameObject);
+    }
 }
