@@ -2,14 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AsteroidType
+{
+    BigAsteroid = 1,
+    MediumAsteroid = 2,
+    SmallAsteroid = 3
+}
+
 public class AsteroidsManager : MonoBehaviour
 {
     public static AsteroidsManager Instance;
 
-    public float MinWaitTime = 1;
-    public float MaxWaitTime = 5;
     public ShipMovement Player;
-    public Asteroid AsteroidPrefab;
+    public Asteroid AsteroidBig;
+    public Asteroid AsteroidMedium;
+    public Asteroid AsteroidSmall;
     public List<Asteroid> _existingAsteroids;
 
     private void Awake() => Instance = this;
@@ -22,7 +29,7 @@ public class AsteroidsManager : MonoBehaviour
 
     public void DestroyAsteroids()
     {
-        while(_existingAsteroids.Count != 0)
+        while (_existingAsteroids.Count != 0)
             DestroyAsteroid(_existingAsteroids[0], force: true);
 
         _existingAsteroids = new List<Asteroid>();
@@ -30,7 +37,7 @@ public class AsteroidsManager : MonoBehaviour
 
     public void DestroyAsteroid(Asteroid asteroid, bool force = false)
     {
-        if(_existingAsteroids.Contains(asteroid))
+        if (_existingAsteroids.Contains(asteroid))
             _existingAsteroids.Remove(asteroid);
 
         asteroid.Dispose(force);
@@ -38,21 +45,21 @@ public class AsteroidsManager : MonoBehaviour
 
     public void CreateReplicas(Asteroid asteroidPrefab, Vector3 position, Vector3 direction)
     {
-        Asteroid tmp = GameObject.Instantiate(asteroidPrefab);
+        Asteroid tmp = Instantiate(asteroidPrefab);
         tmp.transform.position = position;
         tmp.Direction = direction;
+        _existingAsteroids.Add(tmp);
     }
-
 
     private IEnumerator ShootAsteroids()
     {
         while (true)
         {
-            float waitTime = Random.Range(MinWaitTime, MaxWaitTime);
+            float waitTime = Random.Range(Main.Instance.Settings.MinWaitTime, Main.Instance.Settings.MaxWaitTime);
 
             yield return new WaitForSeconds(waitTime);
 
-            if(Main.Instance.IsGameRunning)
+            if (Main.Instance.IsGameRunning)
                 _existingAsteroids.Add(CreateAsteroid());
         }
     }
@@ -69,7 +76,24 @@ public class AsteroidsManager : MonoBehaviour
             positionY = edgeXAxis < 3 ? 0 : Screen.height;
 
         Vector3 screenPosition = new Vector3(positionX, positionY, Camera.main.transform.position.y);
-        Asteroid tmp = GameObject.Instantiate(AsteroidPrefab);
+        Asteroid prefab = AsteroidBig;
+
+        if (Main.Instance.Settings.GenerateRandomSizeAsteroids)
+        {
+            int option = Random.Range(0, 3);
+
+            switch (option)
+            {
+                case 0:
+                    prefab = AsteroidSmall;
+                    break;
+                case 1:
+                    prefab = AsteroidMedium;
+                    break;
+            }
+        }
+
+        Asteroid tmp = Instantiate(prefab);
         tmp.transform.position = Camera.main.ScreenToWorldPoint(screenPosition);
         tmp.Direction = (Player.transform.position - tmp.transform.position).normalized;
 

@@ -6,10 +6,7 @@ public class HighScoreUIItem : MonoBehaviour
     public Text TextField;
     public bool ExtensiveWrite;
 
-    private void Start()
-    {
-        UpdateScore();
-    }
+    private void Start() => UpdateScore();
 
     public void UpdateScore()
     {

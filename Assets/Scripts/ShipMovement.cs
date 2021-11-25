@@ -3,17 +3,17 @@ using UnityEngine;
 public class ShipMovement : MonoBehaviour
 {
     public Bullet BulletPrefab;
-    public int StartingHealt = 4;
-    public int Health;
     public Rigidbody RBody;
-    public float MoveSpeed = 20f;
-    public float RotateSpeed = 160f;
     public int Points { get; private set; }
+    public int Health { get; private set; }
+
 
     private void Start()
     {
-        Health = StartingHealt;
+        Health = Main.Instance.Settings.StartingHealt;
         Points = 0;
+        MeshRenderer meshR = transform.GetComponentInChildren<MeshRenderer>();
+        meshR.material.color = Main.Instance.Settings.PlayerColor;
     }
 
     private void FixedUpdate()
@@ -22,7 +22,7 @@ public class ShipMovement : MonoBehaviour
             return;
 
         float v = Input.GetAxisRaw("Vertical");
-        RBody.AddForce((transform.forward * v * MoveSpeed) - RBody.velocity, ForceMode.Force);
+        RBody.AddForce((transform.forward * v * Main.Instance.Settings.MoveSpeed) - RBody.velocity, ForceMode.Force);
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class ShipMovement : MonoBehaviour
 
         float rotation = Input.GetAxisRaw("Horizontal");
         Vector3 currentEulerRotation = transform.eulerAngles;
-        currentEulerRotation.y += rotation * Time.smoothDeltaTime * RotateSpeed;
+        currentEulerRotation.y += rotation * Time.smoothDeltaTime * Main.Instance.Settings.RotateSpeed;
         transform.localEulerAngles = currentEulerRotation;
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -41,14 +41,14 @@ public class ShipMovement : MonoBehaviour
 
     public void UpdateScore()
     {
-        Points++;
+        Points += Main.Instance.Settings.HitPoints;
     }
 
     private void Shoot()
     {
         Bullet bullet = Instantiate(BulletPrefab);
         bullet.Direction = transform.forward;
-        bullet.transform.position = transform.position + transform.forward * 3;
+        bullet.transform.position = transform.position + transform.forward * Main.Instance.Settings.BulletShottingDistance;
     }
 
     public void TakeHit()

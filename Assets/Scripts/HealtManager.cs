@@ -8,9 +8,6 @@ public class HealtManager : MonoBehaviour
     public Transform HealtContainer;
     public HealtUIIcon HealtPrefabUp;
     public HealtUIIcon HealtPrefabDown;
-    public int OffSetBetweenShips = 25;
-    public int YOffSet = 10;
-    public int XOffSet = 20;
     private List<HealtUIIcon> _currentIcons;
     private List<HealtUIIcon> _usedItems;
 
@@ -18,7 +15,7 @@ public class HealtManager : MonoBehaviour
 
     public void PopulateHealtUI(int startingHealt)
     {
-        Vector3 currentPosition = new Vector3(-XOffSet, -YOffSet, 0);
+        Vector3 currentPosition = -Main.Instance.Settings.OffSet;
         _currentIcons = new List<HealtUIIcon>();
         _usedItems = new List<HealtUIIcon>();
 
@@ -26,9 +23,9 @@ public class HealtManager : MonoBehaviour
         {
             HealtUIIcon tmp = Instantiate(i % 2 == 0 ? HealtPrefabUp : HealtPrefabDown, HealtContainer, true);
             tmp.transform.localPosition = currentPosition;
-            tmp.transform.localScale = Vector3.one * 5;
+            tmp.transform.localScale = Vector3.one * Main.Instance.Settings.HealtIconsSize;
             tmp.transform.localEulerAngles = new Vector3(90, -90, 90);
-            currentPosition -= Vector3.right * OffSetBetweenShips;
+            currentPosition -= Vector3.right * Main.Instance.Settings.SpaceBetweenShips;
             _currentIcons.Add(tmp);
         }
 
