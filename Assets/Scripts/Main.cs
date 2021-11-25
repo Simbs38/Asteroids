@@ -26,7 +26,7 @@ public class Main : MonoBehaviour
         HealtManager.Instance.RemoveHealt();
 
         if (Player.Health == 0)
-            EndGame();
+            EndGame(Player.Points);
         else
         {
             HitTakenCanvas.gameObject.SetActive(true);
@@ -51,9 +51,10 @@ public class Main : MonoBehaviour
         ScoreUI.text = Player.Points.ToString();
     }
 
-    public void EndGame()
+    public void EndGame(int playerPoints)
     {
         IsGameRunning = false;
         EndGameCanvas.gameObject.SetActive(true);
+        PlayerPrefs.SetInt("HighScore", Mathf.Max(playerPoints, PlayerPrefs.GetInt("HighScore",0)));
     }
 }
