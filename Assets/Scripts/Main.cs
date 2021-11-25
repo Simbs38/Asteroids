@@ -11,10 +11,7 @@ public class Main : MonoBehaviour
 
     private void Awake() => Instance = this;
 
-    private void Start()
-    {
-        IsGameRunning = true;
-    }
+    private void Start() => IsGameRunning = true;
 
     public void HitTaken()
     {
@@ -31,5 +28,12 @@ public class Main : MonoBehaviour
         HitTakenCanvas.gameObject.SetActive(false);
         IsGameRunning = true;
         Player.ResetPosition();
+    }
+
+
+    public void HitAsteroid(Asteroid asteroid)
+    {
+        AsteroidsManager.Instance.DestroyAsteroid(asteroid);
+        Player.UpdateScore();
     }
 }

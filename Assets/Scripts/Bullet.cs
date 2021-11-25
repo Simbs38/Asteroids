@@ -9,10 +9,18 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<ShipMovement>() != null)
+        if (other.GetComponent<ShipMovement>() != null)
         {
             Main.Instance.HitTaken();
+            Destroy(gameObject);
+
+            return;
         }
+
+        Asteroid asteroid = other.GetComponent<Asteroid>();
+
+        if (asteroid != null)
+            Main.Instance.HitAsteroid(asteroid);
 
         Destroy(gameObject);
     }
