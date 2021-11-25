@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
@@ -8,10 +9,15 @@ public class Main : MonoBehaviour
     public bool IsGameRunning { get; private set; }
     public ShipMovement Player;
     public Canvas HitTakenCanvas;
+    public Text ScoreUI;
 
     private void Awake() => Instance = this;
 
-    private void Start() => IsGameRunning = true;
+    private void Start()
+    {
+        IsGameRunning = true;
+        HealtManager.Instance.PopulateHealtUI(Player.StartingHealt);
+    }
 
     public void HitTaken()
     {
@@ -20,6 +26,7 @@ public class Main : MonoBehaviour
         AsteroidsManager.Instance.DestroyAsteroids();
         Player.TakeHit();
         StartCoroutine(StopGame());
+        HealtManager.Instance.RemoveHealt();
     }
 
     public IEnumerator StopGame()
@@ -30,10 +37,10 @@ public class Main : MonoBehaviour
         Player.ResetPosition();
     }
 
-
     public void HitAsteroid(Asteroid asteroid)
     {
         AsteroidsManager.Instance.DestroyAsteroid(asteroid);
         Player.UpdateScore();
+        ScoreUI.text = Player.Points.ToString();
     }
 }

@@ -3,14 +3,16 @@ using UnityEngine;
 public class ShipMovement : MonoBehaviour
 {
     public Bullet BulletPrefab;
-    public int Health = 4;
+    public int StartingHealt = 4;
+    public int Health;
     public Rigidbody RBody;
     public float MoveSpeed = 20f;
     public float RotateSpeed = 160f;
-    public int Points;
+    public int Points { get; private set; }
 
     private void Start()
     {
+        Health = StartingHealt;
         Points = 0;
     }
 
