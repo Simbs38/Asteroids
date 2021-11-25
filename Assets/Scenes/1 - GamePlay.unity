@@ -385,9 +385,6 @@ MonoBehaviour:
   HealtContainer: {fileID: 1588236943}
   HealtPrefabUp: {fileID: -3632426485204361797, guid: 56dc171c0ea39a349817c581c578a2cb, type: 3}
   HealtPrefabDown: {fileID: -7247159509889311513, guid: 6d60549cc7f061c4fa00a22f6fa8288b, type: 3}
-  OffSetBetweenShips: 25
-  YOffSet: 10
-  XOffSet: 20
 --- !u!1 &256443548
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,11 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 1475895002218605707, guid: f3dc629ff91b3634a9cce6f84ee4b8d3, type: 3}
-  StartingHealt: 1
-  Health: 1
   RBody: {fileID: 619928982}
-  MoveSpeed: 20
-  RotateSpeed: 160
 --- !u!54 &619928982
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2171,7 +2164,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 100.9, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1793997649
 MonoBehaviour:
@@ -2430,6 +2423,7 @@ MonoBehaviour:
   HitTakenCanvas: {fileID: 717992665}
   EndGameCanvas: {fileID: 1808055124}
   ScoreUI: {fileID: 1793997649}
+  Settings: {fileID: 11400000, guid: 5c56750bb08b73940a377829adf2686a, type: 2}
 --- !u!1 &2027422968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,8 +2569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b12c22482f47f74ba6b437ef3f97029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinWaitTime: 1
-  MaxWaitTime: 5
   Player: {fileID: 619928981}
-  AsteroidPrefab: {fileID: 613993389580480742, guid: fcb5606c04604424db6a4d224fa8557c, type: 3}
+  AsteroidBig: {fileID: 613993389580480742, guid: fcb5606c04604424db6a4d224fa8557c, type: 3}
+  AsteroidMedium: {fileID: 2675936494571516591, guid: 858c7ce500e25a640b8e1019153337e1, type: 3}
+  AsteroidSmall: {fileID: 1643656406105096494, guid: 4a1708f71dddc5e4587cbec01add04b9, type: 3}
   _existingAsteroids: []

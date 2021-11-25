@@ -11,13 +11,15 @@ public class Main : MonoBehaviour
     public Canvas HitTakenCanvas;
     public Canvas EndGameCanvas;
     public Text ScoreUI;
+    public CustomSettings Settings;
 
     private void Awake() => Instance = this;
 
     private void Start()
     {
         IsGameRunning = true;
-        HealtManager.Instance.PopulateHealtUI(Player.StartingHealt);
+        HealtManager.Instance.PopulateHealtUI(Settings.StartingHealt);
+        Camera.main.backgroundColor = Main.Instance.Settings.BackGroundColor;
     }
 
     public void HitTaken()
