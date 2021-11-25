@@ -4,9 +4,15 @@ public class ShipMovement : MonoBehaviour
 {
     public Bullet BulletPrefab;
     public int Health = 4;
-    public Rigidbody RigidBody;
+    public Rigidbody RBody;
     public float MoveSpeed = 20f;
     public float RotateSpeed = 160f;
+    public int Points;
+
+    private void Start()
+    {
+        Points = 0;
+    }
 
     private void FixedUpdate()
     {
@@ -14,7 +20,7 @@ public class ShipMovement : MonoBehaviour
             return;
 
         float v = Input.GetAxisRaw("Vertical");
-        RigidBody.AddForce((transform.forward * v * MoveSpeed) - RigidBody.velocity, ForceMode.Force);
+        RBody.AddForce((transform.forward * v * MoveSpeed) - RBody.velocity, ForceMode.Force);
     }
 
     private void Update()
@@ -29,6 +35,11 @@ public class ShipMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
             Shoot();
+    }
+
+    public void UpdateScore()
+    {
+        Points++;
     }
 
     private void Shoot()
@@ -48,5 +59,7 @@ public class ShipMovement : MonoBehaviour
     {
         transform.position = Vector3.zero;
         transform.eulerAngles = Vector3.zero;
+        RBody.velocity = Vector3.zero;
+        RBody.angularVelocity = Vector3.zero;
     }
 }

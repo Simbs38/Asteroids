@@ -22,8 +22,18 @@ public class AsteroidsManager : MonoBehaviour
 
     public void DestroyAsteroids()
     {
-        _existingAsteroids.ForEach(asteroid => asteroid.Dispose());
-        _existingAsteroids.Clear();
+        while(_existingAsteroids.Count != 0)
+            DestroyAsteroid(_existingAsteroids[0]);
+
+        _existingAsteroids = new List<Asteroid>();
+    }
+
+    public void DestroyAsteroid(Asteroid asteroid)
+    {
+        if(_existingAsteroids.Contains(asteroid))
+            _existingAsteroids.Remove(asteroid);
+
+        asteroid.Dispose();
     }
 
     private IEnumerator ShootAsteroids()
