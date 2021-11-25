@@ -718,6 +718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 1475895002218605707, guid: f3dc629ff91b3634a9cce6f84ee4b8d3, type: 3}
   RBody: {fileID: 619928982}
+  ShootSound: {fileID: 0}
 --- !u!54 &619928982
 Rigidbody:
   m_ObjectHideFlags: 0

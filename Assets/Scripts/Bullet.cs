@@ -3,6 +3,17 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Vector3 Direction;
+    public AudioSource BulletSound{
+        get {
+            if(_bulletSound == null)
+                _bulletSound = GetComponent<AudioSource>();
+
+            return _bulletSound;
+        }
+    }
+    private AudioSource _bulletSound;
+
+
 
     private void Update() => transform.position += Direction * Main.Instance.Settings.BulletSpeed;
 
@@ -23,4 +34,6 @@ public class Bullet : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    public void PlaySound() => BulletSound.Play();
 }

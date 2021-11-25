@@ -47,6 +47,7 @@ public class ShipMovement : MonoBehaviour
     private void Shoot()
     {
         Bullet bullet = Instantiate(BulletPrefab);
+        bullet.PlaySound();
         bullet.Direction = transform.forward;
         bullet.transform.position = transform.position + transform.forward * Main.Instance.Settings.BulletShottingDistance;
     }
