@@ -10,7 +10,7 @@ public class ShipMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!Main.Instance.IsGameRunning)
+        if (!Main.Instance.IsGameRunning)
             return;
 
         float v = Input.GetAxisRaw("Vertical");
@@ -19,7 +19,7 @@ public class ShipMovement : MonoBehaviour
 
     private void Update()
     {
-        if(!Main.Instance.IsGameRunning)
+        if (!Main.Instance.IsGameRunning)
             return;
 
         float rotation = Input.GetAxisRaw("Horizontal");
@@ -41,6 +41,11 @@ public class ShipMovement : MonoBehaviour
     public void TakeHit()
     {
         Health--;
+        ResetPosition();
+    }
+
+    public void ResetPosition()
+    {
         transform.position = Vector3.zero;
         transform.eulerAngles = Vector3.zero;
     }

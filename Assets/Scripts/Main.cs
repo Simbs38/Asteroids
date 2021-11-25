@@ -30,5 +30,6 @@ public class Main : MonoBehaviour
         yield return new WaitForSeconds(2);
         HitTakenCanvas.gameObject.SetActive(false);
         IsGameRunning = true;
+        Player.ResetPosition();
     }
 }
