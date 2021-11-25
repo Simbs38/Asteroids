@@ -2578,5 +2578,5 @@ MonoBehaviour:
   MinWaitTime: 1
   MaxWaitTime: 5
   Player: {fileID: 619928981}
-  AsteroidPrefab: {fileID: 2722817882548466454, guid: fcb5606c04604424db6a4d224fa8557c, type: 3}
+  AsteroidPrefab: {fileID: 613993389580480742, guid: fcb5606c04604424db6a4d224fa8557c, type: 3}
   _existingAsteroids: []

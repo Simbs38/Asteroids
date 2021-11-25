@@ -1,5 +1,8 @@
 using UnityEngine;
 
+
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class ScreenTransport : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)

@@ -1,9 +1,11 @@
 using UnityEngine;
 
+[RequireComponent(typeof(ScreenTransport))]
 public class Asteroid : MonoBehaviour
 {
     public Vector3 Direction;
     public float AsteroidSpeed = 1;
+    public int Level;
 
     private void Update()
     {
