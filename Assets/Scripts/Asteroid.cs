@@ -18,6 +18,7 @@ public class Asteroid : MonoBehaviour
         if (other.GetComponent<ShipMovement>() != null)
         {
             Main.Instance.HitTaken();
+            Dispose();
         }
     }
 }

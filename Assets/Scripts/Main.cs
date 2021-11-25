@@ -9,6 +9,7 @@ public class Main : MonoBehaviour
     public bool IsGameRunning { get; private set; }
     public ShipMovement Player;
     public Canvas HitTakenCanvas;
+    public Canvas EndGameCanvas;
     public Text ScoreUI;
 
     private void Awake() => Instance = this;
@@ -21,12 +22,18 @@ public class Main : MonoBehaviour
 
     public void HitTaken()
     {
-        HitTakenCanvas.gameObject.SetActive(true);
-        IsGameRunning = false;
-        AsteroidsManager.Instance.DestroyAsteroids();
         Player.TakeHit();
-        StartCoroutine(StopGame());
         HealtManager.Instance.RemoveHealt();
+
+        if (Player.Health == 0)
+            EndGame();
+        else
+        {
+            HitTakenCanvas.gameObject.SetActive(true);
+            IsGameRunning = false;
+            AsteroidsManager.Instance.DestroyAsteroids();
+            StartCoroutine(StopGame());
+        }
     }
 
     public IEnumerator StopGame()
@@ -42,5 +49,11 @@ public class Main : MonoBehaviour
         AsteroidsManager.Instance.DestroyAsteroid(asteroid);
         Player.UpdateScore();
         ScoreUI.text = Player.Points.ToString();
+    }
+
+    public void EndGame()
+    {
+        IsGameRunning = false;
+        EndGameCanvas.gameObject.SetActive(true);
     }
 }
