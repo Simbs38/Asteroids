@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class ShipMovement : MonoBehaviour
 {
     public Bullet BulletPrefab;
@@ -7,6 +8,18 @@ public class ShipMovement : MonoBehaviour
     public int Points { get; private set; }
     public int Health { get; private set; }
 
+    public AudioSource Sound
+    {
+        get
+        {
+            if (_sound == null)
+                _sound = GetComponent<AudioSource>();
+
+            return _sound;
+        }
+    }
+
+    private AudioSource _sound;
 
     private void Start()
     {
@@ -47,12 +60,14 @@ public class ShipMovement : MonoBehaviour
     private void Shoot()
     {
         Bullet bullet = Instantiate(BulletPrefab);
+        bullet.PlaySound();
         bullet.Direction = transform.forward;
         bullet.transform.position = transform.position + transform.forward * Main.Instance.Settings.BulletShottingDistance;
     }
 
     public void TakeHit()
     {
+        Sound.Play();
         Health--;
         ResetPosition();
     }

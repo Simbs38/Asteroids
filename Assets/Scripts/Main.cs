@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
     public static Main Instance;
+    public AudioSource ReSpawnSound;
 
     public bool IsGameRunning { get; private set; }
     public ShipMovement Player;
@@ -40,6 +41,7 @@ public class Main : MonoBehaviour
 
     public IEnumerator StopGame()
     {
+        ReSpawnSound.Play();
         yield return new WaitForSeconds(2);
         HitTakenCanvas.gameObject.SetActive(false);
         IsGameRunning = true;
