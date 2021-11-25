@@ -1,9 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(ScreenTransport))]
 public class Asteroid : MonoBehaviour
 {
     public Vector3 Direction;
     public float AsteroidSpeed = 1;
+    public int Level;
+    public Asteroid AsteroidToGenerate;
 
     private void Update()
     {
@@ -11,7 +14,19 @@ public class Asteroid : MonoBehaviour
         transform.rotation = Quaternion.identity;
     }
 
-    public void Dispose() => Destroy(gameObject);
+    public void Dispose(bool forceDestoy = false)
+    {
+        Destroy(gameObject);
+
+        if(!forceDestoy && AsteroidToGenerate != null)
+        {
+            Vector3 directionA = Quaternion.Euler(0,30,0) * Direction;
+            Vector3 directionB = Quaternion.Euler(0,-30,0) * Direction;
+
+            AsteroidsManager.Instance.CreateReplicas(AsteroidToGenerate, transform.position, directionA);
+            AsteroidsManager.Instance.CreateReplicas(AsteroidToGenerate, transform.position, directionB);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {

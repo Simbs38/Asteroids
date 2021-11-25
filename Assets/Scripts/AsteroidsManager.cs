@@ -23,18 +23,26 @@ public class AsteroidsManager : MonoBehaviour
     public void DestroyAsteroids()
     {
         while(_existingAsteroids.Count != 0)
-            DestroyAsteroid(_existingAsteroids[0]);
+            DestroyAsteroid(_existingAsteroids[0], force: true);
 
         _existingAsteroids = new List<Asteroid>();
     }
 
-    public void DestroyAsteroid(Asteroid asteroid)
+    public void DestroyAsteroid(Asteroid asteroid, bool force = false)
     {
         if(_existingAsteroids.Contains(asteroid))
             _existingAsteroids.Remove(asteroid);
 
-        asteroid.Dispose();
+        asteroid.Dispose(force);
     }
+
+    public void CreateReplicas(Asteroid asteroidPrefab, Vector3 position, Vector3 direction)
+    {
+        Asteroid tmp = GameObject.Instantiate(asteroidPrefab);
+        tmp.transform.position = position;
+        tmp.Direction = direction;
+    }
+
 
     private IEnumerator ShootAsteroids()
     {
