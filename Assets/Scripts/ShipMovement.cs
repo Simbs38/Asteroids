@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -5,6 +6,8 @@ public class ShipMovement : MonoBehaviour
 {
     public Bullet BulletPrefab;
     public Rigidbody RBody;
+    public ParticleSystem LeftMotor;
+    public ParticleSystem RigthMotor;
     public int Points { get; private set; }
     public int Health { get; private set; }
 
@@ -35,7 +38,21 @@ public class ShipMovement : MonoBehaviour
             return;
 
         float v = Input.GetAxisRaw("Vertical");
+        float rotation = Input.GetAxisRaw("Horizontal");
+
+        SetMotor(LeftMotor, 0 < v, Mathf.Sign(rotation) == 1 && rotation != 0);
+        SetMotor(RigthMotor, 0 < v, Mathf.Sign(rotation) == -1 && rotation != 0);
+
         RBody.AddForce((transform.forward * v * Main.Instance.Settings.MoveSpeed) - RBody.velocity, ForceMode.Force);
+    }
+
+    private void SetMotor(ParticleSystem motor, bool movingForward, bool movingToThiSide)
+    {
+        if(!motor.isPlaying && (movingForward || movingToThiSide))
+            motor.Play();
+
+        else if(motor.isPlaying && !movingForward && !movingToThiSide)
+            motor.Stop();
     }
 
     private void Update()
@@ -62,6 +79,7 @@ public class ShipMovement : MonoBehaviour
         Bullet bullet = Instantiate(BulletPrefab);
         bullet.PlaySound();
         bullet.Direction = transform.forward;
+        bullet.transform.forward = transform.forward;
         bullet.transform.position = transform.position + transform.forward * Main.Instance.Settings.BulletShottingDistance;
     }
 
@@ -78,5 +96,10 @@ public class ShipMovement : MonoBehaviour
         transform.eulerAngles = Vector3.zero;
         RBody.velocity = Vector3.zero;
         RBody.angularVelocity = Vector3.zero;
+
+        if(LeftMotor.isPlaying)
+            LeftMotor.Stop();
+        if(RigthMotor.isPlaying)
+            RigthMotor.Stop();
     }
 }

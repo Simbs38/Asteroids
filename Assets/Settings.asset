@@ -17,7 +17,7 @@ MonoBehaviour:
   PlayerColor: {r: 0.74509805, g: 0.1254902, b: 0.14901961, a: 1}
   MoveSpeed: 20
   RotateSpeed: 160
-  BulletSpeed: 0.5
+  BulletSpeed: 0.1
   BulletShottingDistance: 3
   MinWaitTime: 1
   MaxWaitTime: 5

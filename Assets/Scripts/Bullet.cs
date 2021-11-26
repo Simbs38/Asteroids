@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Vector3 Direction;
+    public ParticleSystem ParticleEffect;
 
     public MeshRenderer MeshR
     {
@@ -40,6 +41,8 @@ public class Bullet : MonoBehaviour
         if(_used)
             return;
 
+        _used = true;
+
         if (other.GetComponent<ShipMovement>() != null)
             Main.Instance.HitTaken();
         else
@@ -47,10 +50,13 @@ public class Bullet : MonoBehaviour
             Asteroid asteroid = other.GetComponent<Asteroid>();
 
             if (asteroid != null)
+            {
+                StartCoroutine(CreateExplosion(asteroid.transform.position));
                 Main.Instance.HitAsteroid(asteroid);
+            }
+
         }
 
-        _used = true;
         StartCoroutine(LateDestroy());
     }
 
@@ -61,5 +67,14 @@ public class Bullet : MonoBehaviour
         MeshR.enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
+    }
+
+    private IEnumerator CreateExplosion(Vector3 position)
+    {
+        ParticleSystem tmp = Instantiate(ParticleEffect);
+        tmp.transform.position = position;
+        tmp.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        Destroy(tmp.gameObject);
     }
 }
