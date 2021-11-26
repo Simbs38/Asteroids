@@ -13,6 +13,7 @@ public class Main : MonoBehaviour
     public Canvas EndGameCanvas;
     public Text ScoreUI;
     public CustomSettings Settings;
+    public Camera Camera;
 
     private void Awake() => Instance = this;
 
