@@ -37,20 +37,20 @@ public class Asteroid : MonoBehaviour
 
     private void Start()
     {
-        MeshRenderer meshR = transform.GetComponentInChildren<MeshRenderer>();
+        MeshRenderer meshR = transform.GetComponent<MeshRenderer>();
 
         switch (Type)
         {
             case AsteroidType.BigAsteroid:
-                meshR.material.color = Main.Instance.Settings.BigAsteroidColor;
+                meshR.material.SetColor("_Color", Main.Instance.Settings.BigAsteroidColor);
                 break;
 
             case AsteroidType.MediumAsteroid:
-                meshR.material.color = Main.Instance.Settings.MediumAsteroidColor;
+                meshR.material.SetColor("_Color", Main.Instance.Settings.MediumAsteroidColor);
                 break;
 
             case AsteroidType.SmallAsteroid:
-                meshR.material.color = Main.Instance.Settings.SmallAsteroidColor;
+                meshR.material.SetColor("_Color", Main.Instance.Settings.SmallAsteroidColor);
                 break;
         }
     }

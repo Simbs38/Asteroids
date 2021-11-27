@@ -25,9 +25,9 @@ MonoBehaviour:
   AsteroidSpeed: 5.62
   HitPoints: 1
   GenerateRandomSizeAsteroids: 1
-  BigAsteroidColor: {r: 0.18534815, g: 0.4862745, b: 0.18039219, a: 1}
-  MediumAsteroidColor: {r: 0.18039219, g: 0.2049383, b: 0.4862745, a: 1}
-  SmallAsteroidColor: {r: 0.4862745, g: 0.18039219, b: 0.40652215, a: 1}
+  BigAsteroidColor: {r: 0.4862745, g: 0.2111872, b: 0.18039219, a: 1}
+  MediumAsteroidColor: {r: 0.4862745, g: 0.18039219, b: 0.42894885, a: 1}
+  SmallAsteroidColor: {r: 0.18645477, g: 0.4862745, b: 0.18039219, a: 1}
   OffSet: {x: 20, y: 10}
   SpaceBetweenShips: 25
   BackGroundColor: {r: 0.16862746, g: 0.20000002, b: 0.24705884, a: 1}

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Direction: {x: 0, y: 0, z: 0}
-  Type: 0
+  Type: 2
   AsteroidToGenerate: {fileID: 1643656406105096494, guid: 4a1708f71dddc5e4587cbec01add04b9, type: 3}
 --- !u!82 &6581187300725383202
 AudioSource:
@@ -208,7 +208,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b33a9f1e0493c4244b533010c640e942, type: 2}
+  - {fileID: 2100000, guid: b1e1f633983f8374cb3e337f3fe3dcd6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

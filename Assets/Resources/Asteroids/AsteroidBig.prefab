@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Direction: {x: 0, y: 0, z: 0}
-  Type: 0
+  Type: 1
   AsteroidToGenerate: {fileID: 2675936494571516591, guid: 858c7ce500e25a640b8e1019153337e1, type: 3}
 --- !u!82 &8471746626085070516
 AudioSource:
