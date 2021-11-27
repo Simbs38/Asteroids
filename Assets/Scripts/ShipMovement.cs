@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -8,8 +7,10 @@ public class ShipMovement : MonoBehaviour
     public Rigidbody RBody;
     public ParticleSystem LeftMotor;
     public ParticleSystem RigthMotor;
+    public Joystick CurrentJoystick;
     public int Points { get; private set; }
     public int Health { get; private set; }
+    private float _lastInputTime;
 
     public AudioSource Sound
     {
@@ -37,21 +38,20 @@ public class ShipMovement : MonoBehaviour
         if (!Main.Instance.IsGameRunning)
             return;
 
-        float v = Input.GetAxisRaw("Vertical");
-        float rotation = Input.GetAxisRaw("Horizontal");
+        float movement = GetMovement();
+        float rotation = GetRotation();
 
-        SetMotor(LeftMotor, 0 < v, Mathf.Sign(rotation) == 1 && rotation != 0);
-        SetMotor(RigthMotor, 0 < v, Mathf.Sign(rotation) == -1 && rotation != 0);
+        SetMotor(LeftMotor, 0 < movement, Mathf.Sign(rotation) == 1 && rotation != 0);
+        SetMotor(RigthMotor, 0 < movement, Mathf.Sign(rotation) == -1 && rotation != 0);
 
-        RBody.AddForce((transform.forward * v * Main.Instance.Settings.MoveSpeed) - RBody.velocity, ForceMode.Force);
+        RBody.AddForce((transform.forward * movement * Main.Instance.Settings.MoveSpeed) - RBody.velocity, ForceMode.Force);
     }
 
     private void SetMotor(ParticleSystem motor, bool movingForward, bool movingToThiSide)
     {
-        if(!motor.isPlaying && (movingForward || movingToThiSide))
+        if (!motor.isPlaying && (movingForward || movingToThiSide))
             motor.Play();
-
-        else if(motor.isPlaying && !movingForward && !movingToThiSide)
+        else if (motor.isPlaying && !movingForward && !movingToThiSide)
             motor.Stop();
     }
 
@@ -60,7 +60,7 @@ public class ShipMovement : MonoBehaviour
         if (!Main.Instance.IsGameRunning)
             return;
 
-        float rotation = Input.GetAxisRaw("Horizontal");
+        float rotation = GetRotation();
         Vector3 currentEulerRotation = transform.eulerAngles;
         currentEulerRotation.y += rotation * Time.smoothDeltaTime * Main.Instance.Settings.RotateSpeed;
         transform.localEulerAngles = currentEulerRotation;
@@ -69,12 +69,28 @@ public class ShipMovement : MonoBehaviour
             Shoot();
     }
 
+    private float GetRotation()
+    {
+        float rotation = Input.GetAxisRaw("Horizontal");
+        float joystickInput = CurrentJoystick.Horizontal;
+
+        return joystickInput == 0 ? rotation : joystickInput;
+    }
+
+    private float GetMovement()
+    {
+        float movement = Input.GetAxisRaw("Vertical");
+        float joystickInput = CurrentJoystick.Vertical;
+
+        return joystickInput == 0 ? movement : joystickInput;
+    }
+
     public void UpdateScore()
     {
         Points += Main.Instance.Settings.HitPoints;
     }
 
-    private void Shoot()
+    public void Shoot()
     {
         Bullet bullet = Instantiate(BulletPrefab);
         bullet.PlaySound();
@@ -97,9 +113,9 @@ public class ShipMovement : MonoBehaviour
         RBody.velocity = Vector3.zero;
         RBody.angularVelocity = Vector3.zero;
 
-        if(LeftMotor.isPlaying)
+        if (LeftMotor.isPlaying)
             LeftMotor.Stop();
-        if(RigthMotor.isPlaying)
+        if (RigthMotor.isPlaying)
             RigthMotor.Stop();
     }
 }
