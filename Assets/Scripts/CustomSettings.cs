@@ -18,6 +18,7 @@ public class CustomSettings : ScriptableObject
 
     public float BulletSpeed = 0.5f;
     public float BulletShottingDistance = 3;
+    public float DoubleClickTime = 0.5f;
 
 
     [Header("AsteroidManager Settings")]
