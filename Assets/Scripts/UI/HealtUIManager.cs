@@ -25,7 +25,7 @@ public class HealtUIManager : MonoBehaviour
 
     public void PopulateHealtUI(int startingHealt)
     {
-        Vector3 currentPosition = -Main.Instance.Settings.OffSet;
+        Vector3 currentPosition = -Main.Instance.Settings.UI.OffSet;
         _currentIcons = new List<HealtUIIcon>();
         _usedItems = new List<HealtUIIcon>();
 
@@ -33,9 +33,9 @@ public class HealtUIManager : MonoBehaviour
         {
             HealtUIIcon tmp = Instantiate(i % 2 == 0 ? HealtPrefabUp : HealtPrefabDown, HealtContainer, true);
             tmp.transform.localPosition = currentPosition;
-            tmp.transform.localScale = Vector3.one * Main.Instance.Settings.HealtIconsSize;
+            tmp.transform.localScale = Vector3.one * Main.Instance.Settings.Player.HealtIconsSize;
             tmp.transform.localEulerAngles = new Vector3(90, -90, 90);
-            currentPosition -= Vector3.right * Main.Instance.Settings.SpaceBetweenShips;
+            currentPosition -= Vector3.right * Main.Instance.Settings.UI.SpaceBetweenShips;
             _currentIcons.Add(tmp);
         }
 

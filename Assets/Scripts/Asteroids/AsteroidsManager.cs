@@ -65,7 +65,7 @@ public class AsteroidsManager : MonoBehaviour
     {
         while (true)
         {
-            float waitTime = Random.Range(Main.Instance.Settings.MinWaitTime, Main.Instance.Settings.MaxWaitTime);
+            float waitTime = Random.Range(Main.Instance.Settings.Asteroid.MinWaitTime, Main.Instance.Settings.Asteroid.MaxWaitTime);
 
             yield return new WaitForSeconds(waitTime);
 
@@ -104,7 +104,7 @@ public class AsteroidsManager : MonoBehaviour
     {
          Asteroid ans = AsteroidBig;
 
-        if (Main.Instance.Settings.GenerateRandomSizeAsteroids)
+        if (Main.Instance.Settings.Asteroid.GenerateRandomSizeAsteroids)
         {
             int option = Random.Range(0, 3);
 

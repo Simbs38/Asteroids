@@ -33,10 +33,10 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Health = Main.Instance.Settings.StartingHealt;
+        Health = Main.Instance.Settings.Player.StartingHealt;
         Points = 0;
         MeshRenderer meshR = transform.GetComponent<MeshRenderer>();
-        meshR.material.color = Main.Instance.Settings.PlayerColor;
+        meshR.material.color = Main.Instance.Settings.Player.PlayerColor;
     }
 
     private void FixedUpdate()
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         SetMotor(LeftMotor, 0 < movement, Mathf.Sign(rotation) == 1 && rotation != 0);
         SetMotor(RigthMotor, 0 < movement, Mathf.Sign(rotation) == -1 && rotation != 0);
 
-        RBody.AddForce((transform.forward * movement * Main.Instance.Settings.MoveSpeed) - RBody.velocity, ForceMode.Force);
+        RBody.AddForce((transform.forward * movement * Main.Instance.Settings.Player.MoveSpeed) - RBody.velocity, ForceMode.Force);
     }
 
     private void Update()
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 
         float rotation = GetRotation();
         Vector3 currentEulerRotation = transform.eulerAngles;
-        currentEulerRotation.y += rotation * Time.smoothDeltaTime * Main.Instance.Settings.RotateSpeed;
+        currentEulerRotation.y += rotation * Time.smoothDeltaTime * Main.Instance.Settings.Player.RotateSpeed;
         transform.localEulerAngles = currentEulerRotation;
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -74,11 +74,11 @@ public class Player : MonoBehaviour
     public void Shoot()
     {
         Bullet bullet = Instantiate(BulletPrefab);
-        Vector3 spwanPosition = transform.position + transform.forward * Main.Instance.Settings.BulletShottingDistance;
+        Vector3 spwanPosition = transform.position + transform.forward * Main.Instance.Settings.Bullet.ShottingDistance;
         bullet.Shooting(spwanPosition, transform.forward);
     }
 
-    public void AddScore() => Points += Main.Instance.Settings.HitPoints;
+    public void AddScore() => Points += Main.Instance.Settings.Asteroid.HitPoints;
 
     public void TakeHit()
     {

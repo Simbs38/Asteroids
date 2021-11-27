@@ -48,22 +48,22 @@ public class Asteroid : MonoBehaviour
         switch (Type)
         {
             case AsteroidType.BigAsteroid:
-                meshR.material.SetColor("_Color", Main.Instance.Settings.BigAsteroidColor);
+                meshR.material.SetColor("_Color", Main.Instance.Settings.Asteroid.BigAsteroidColor);
                 break;
 
             case AsteroidType.MediumAsteroid:
-                meshR.material.SetColor("_Color", Main.Instance.Settings.MediumAsteroidColor);
+                meshR.material.SetColor("_Color", Main.Instance.Settings.Asteroid.MediumAsteroidColor);
                 break;
 
             case AsteroidType.SmallAsteroid:
-                meshR.material.SetColor("_Color", Main.Instance.Settings.SmallAsteroidColor);
+                meshR.material.SetColor("_Color", Main.Instance.Settings.Asteroid.SmallAsteroidColor);
                 break;
         }
     }
 
     private void Update()
     {
-        transform.position += Direction * Time.deltaTime * Main.Instance.Settings.AsteroidSpeed;
+        transform.position += Direction * Time.deltaTime * Main.Instance.Settings.Asteroid.AsteroidSpeed;
         transform.rotation = Quaternion.identity;
     }
 

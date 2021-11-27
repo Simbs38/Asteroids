@@ -26,8 +26,7 @@ public class Main : MonoBehaviour
     private void Start()
     {
         IsGameRunning = true;
-        HealtUIManager.Instance.PopulateHealtUI(Settings.StartingHealt);
-        Camera.main.backgroundColor = Settings.BackGroundColor;
+        HealtUIManager.Instance.PopulateHealtUI(Settings.Player.StartingHealt);
     }
 
     #endregion UnityMethods
