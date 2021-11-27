@@ -4,30 +4,40 @@ using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
-    public static Main Instance;
-    public AudioSource ReSpawnSound;
+    #region Fields
 
+    public static Main Instance;
     public bool IsGameRunning { get; private set; }
-    public ShipMovement Player;
+
+    public AudioSource ReSpawnSound;
+    public CustomSettings Settings;
     public Canvas HitTakenCanvas;
     public Canvas EndGameCanvas;
-    public Text ScoreUI;
-    public CustomSettings Settings;
+    public Player Player;
     public Camera Camera;
+    public Text ScoreUI;
+
+    #endregion Fields
+
+    #region UnityMethods
 
     private void Awake() => Instance = this;
 
     private void Start()
     {
         IsGameRunning = true;
-        HealtManager.Instance.PopulateHealtUI(Settings.StartingHealt);
-        Camera.main.backgroundColor = Main.Instance.Settings.BackGroundColor;
+        HealtUIManager.Instance.PopulateHealtUI(Settings.StartingHealt);
+        Camera.main.backgroundColor = Settings.BackGroundColor;
     }
+
+    #endregion UnityMethods
+
+    #region Methods
 
     public void HitTaken()
     {
         Player.TakeHit();
-        HealtManager.Instance.RemoveHealt();
+        HealtUIManager.Instance.RemoveHealt();
 
         if (Player.Health == 0)
             EndGame(Player.Points);
@@ -40,26 +50,27 @@ public class Main : MonoBehaviour
         }
     }
 
-    public IEnumerator StopGame()
+    public void HitAsteroid(Asteroid asteroid)
+    {
+        AsteroidsManager.Instance.DestroyAsteroid(asteroid);
+        Player.AddScore();
+        ScoreUI.text = Player.Points.ToString();
+    }
+
+    private IEnumerator StopGame()
     {
         ReSpawnSound.Play();
         yield return new WaitForSeconds(2);
         HitTakenCanvas.gameObject.SetActive(false);
         IsGameRunning = true;
-        Player.ResetPosition();
     }
 
-    public void HitAsteroid(Asteroid asteroid)
-    {
-        AsteroidsManager.Instance.DestroyAsteroid(asteroid);
-        Player.UpdateScore();
-        ScoreUI.text = Player.Points.ToString();
-    }
-
-    public void EndGame(int playerPoints)
+    private void EndGame(int playerPoints)
     {
         IsGameRunning = false;
         EndGameCanvas.gameObject.SetActive(true);
-        PlayerPrefs.SetInt("HighScore", Mathf.Max(playerPoints, PlayerPrefs.GetInt("HighScore",0)));
+        PlayerPrefs.SetInt("HighScore", Mathf.Max(playerPoints, PlayerPrefs.GetInt("HighScore", 0)));
     }
+
+    #endregion Methods
 }

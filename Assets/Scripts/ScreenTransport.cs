@@ -4,13 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ScreenTransport : MonoBehaviour
 {
+    #region Unity Methods
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.parent == null || other.transform.parent.name != "Floor")
             return;
 
-        Camera camera = Camera.main;
-        Vector3 screenPosition = camera.WorldToScreenPoint(transform.position);
+        Vector3 screenPosition = Main.Instance.Camera.WorldToScreenPoint(transform.position);
 
         if (screenPosition.x < 0)
             screenPosition.x = Screen.width;
@@ -24,8 +25,10 @@ public class ScreenTransport : MonoBehaviour
         if (Screen.height < screenPosition.y)
             screenPosition.y = 0;
 
-        Vector3 newPosition = camera.ScreenToWorldPoint(screenPosition);
+        Vector3 newPosition = Main.Instance.Camera.ScreenToWorldPoint(screenPosition);
         newPosition.y = 0;
         transform.position = newPosition;
     }
+
+    #endregion Unity Methods
 }
