@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartingHealt: 4
   HealtIconsSize: 5
-  PlayerColor: {r: 0.74509805, g: 0.1254902, b: 0.14901961, a: 1}
+  PlayerColor: {r: 0.6509804, g: 0.10980393, b: 0.13333334, a: 1}
   MoveSpeed: 20
   RotateSpeed: 160
   BulletSpeed: 0.1
