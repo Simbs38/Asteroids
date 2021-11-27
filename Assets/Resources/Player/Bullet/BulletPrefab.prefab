@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParticleEffect: {fileID: 555196359426400684}
+  BulletDrag: {fileID: 6281885743647685339}
 --- !u!54 &7241486057904395549
 Rigidbody:
   m_ObjectHideFlags: 0

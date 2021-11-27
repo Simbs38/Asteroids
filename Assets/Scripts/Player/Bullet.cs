@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     #region Fields
 
     public ParticleSystem ParticleEffect;
+    public ParticleSystem BulletDrag;
 
     public MeshRenderer MeshR
     {
@@ -77,6 +78,7 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator LateDestroy()
     {
+        BulletDrag.gameObject.SetActive(false);
         MeshR.enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
