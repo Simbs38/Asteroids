@@ -33,7 +33,7 @@ public class HealtUIManager : MonoBehaviour
         {
             HealtUIIcon tmp = Instantiate(i % 2 == 0 ? HealtPrefabUp : HealtPrefabDown, HealtContainer, true);
             tmp.transform.localPosition = currentPosition;
-            tmp.transform.localScale = Vector3.one * Main.Instance.Settings.Player.HealtIconsSize;
+            tmp.transform.localScale = Vector3.one * Main.Instance.Settings.UI.HealtIconsSize;
             tmp.transform.localEulerAngles = new Vector3(90, -90, 90);
             currentPosition -= Vector3.right * Main.Instance.Settings.UI.SpaceBetweenShips;
             _currentIcons.Add(tmp);

@@ -14,8 +14,6 @@ public class AsteroidsManager : MonoBehaviour
     #region Fields
 
     public static AsteroidsManager Instance;
-
-    public Player Player;
     public Asteroid AsteroidBig;
     public Asteroid AsteroidMedium;
     public Asteroid AsteroidSmall;
@@ -85,7 +83,7 @@ public class AsteroidsManager : MonoBehaviour
         Asteroid tmp = Instantiate(prefab);
 
         tmp.transform.position = Main.Instance.Camera.ScreenToWorldPoint(screenPosition);
-        tmp.Direction = (Player.transform.position - tmp.transform.position).normalized;
+        tmp.Direction = (Main.Instance.Player.transform.position - tmp.transform.position).normalized;
 
         return tmp;
     }
