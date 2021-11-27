@@ -14,8 +14,6 @@ public class AsteroidsManager : MonoBehaviour
     #region Fields
 
     public static AsteroidsManager Instance;
-
-    public Player Player;
     public Asteroid AsteroidBig;
     public Asteroid AsteroidMedium;
     public Asteroid AsteroidSmall;
@@ -65,7 +63,7 @@ public class AsteroidsManager : MonoBehaviour
     {
         while (true)
         {
-            float waitTime = Random.Range(Main.Instance.Settings.MinWaitTime, Main.Instance.Settings.MaxWaitTime);
+            float waitTime = Random.Range(Main.Instance.Settings.Asteroid.MinWaitTime, Main.Instance.Settings.Asteroid.MaxWaitTime);
 
             yield return new WaitForSeconds(waitTime);
 
@@ -85,7 +83,7 @@ public class AsteroidsManager : MonoBehaviour
         Asteroid tmp = Instantiate(prefab);
 
         tmp.transform.position = Main.Instance.Camera.ScreenToWorldPoint(screenPosition);
-        tmp.Direction = (Player.transform.position - tmp.transform.position).normalized;
+        tmp.Direction = (Main.Instance.Player.transform.position - tmp.transform.position).normalized;
 
         return tmp;
     }
@@ -104,7 +102,7 @@ public class AsteroidsManager : MonoBehaviour
     {
          Asteroid ans = AsteroidBig;
 
-        if (Main.Instance.Settings.GenerateRandomSizeAsteroids)
+        if (Main.Instance.Settings.Asteroid.GenerateRandomSizeAsteroids)
         {
             int option = Random.Range(0, 3);
 

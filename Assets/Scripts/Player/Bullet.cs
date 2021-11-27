@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
 
     #region Unity Methods
 
-    private void Update() => transform.position += transform.forward * Main.Instance.Settings.BulletSpeed;
+    private void Update() => transform.position += transform.forward * Main.Instance.Settings.Bullet.Speed;
 
     private void OnTriggerEnter(Collider other)
     {

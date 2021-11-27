@@ -26,8 +26,7 @@ public class Main : MonoBehaviour
     private void Start()
     {
         IsGameRunning = true;
-        HealtUIManager.Instance.PopulateHealtUI(Settings.StartingHealt);
-        Camera.main.backgroundColor = Settings.BackGroundColor;
+        HealthUIManager.Instance.PopulateHealtUI(Settings.Player.StartingHealt);
     }
 
     #endregion UnityMethods
@@ -37,7 +36,7 @@ public class Main : MonoBehaviour
     public void HitTaken()
     {
         Player.TakeHit();
-        HealtUIManager.Instance.RemoveHealt();
+        HealthUIManager.Instance.RemoveHealt();
 
         if (Player.Health == 0)
             EndGame(Player.Points);

@@ -12,22 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fc79068cc4e94459c5f02fc710eab4, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  StartingHealt: 4
-  HealtIconsSize: 5
-  PlayerColor: {r: 0.6509804, g: 0.10980393, b: 0.13333334, a: 1}
-  MoveSpeed: 20
-  RotateSpeed: 160
-  BulletSpeed: 0.1
-  BulletShottingDistance: 3
-  DoubleClickTime: 0.5
-  MinWaitTime: 1
-  MaxWaitTime: 5
-  AsteroidSpeed: 5.62
-  HitPoints: 1
-  GenerateRandomSizeAsteroids: 1
-  BigAsteroidColor: {r: 0.4862745, g: 0.2111872, b: 0.18039219, a: 1}
-  MediumAsteroidColor: {r: 0.4862745, g: 0.18039219, b: 0.42894885, a: 1}
-  SmallAsteroidColor: {r: 0.18645477, g: 0.4862745, b: 0.18039219, a: 1}
+  Player:
+    StartingHealt: 4
+    HealtIconsSize: 5
+    PlayerColor: {r: 0.6509804, g: 0.10980393, b: 0.13333334, a: 1}
+    MoveSpeed: 20
+    RotateSpeed: 160
+  Bullet:
+    Speed: 0.1
+    ShottingDistance: 3
+    DoubleClickTime: 0.5
+  Asteroid:
+    HitPoints: 1
+    AsteroidSpeed: 3
+    MinWaitTime: 1
+    MaxWaitTime: 5
+    GenerateRandomSizeAsteroids: 1
+    BigAsteroidColor: {r: 0.7058824, g: 0.035294127, b: 0.69399107, a: 1}
+    MediumAsteroidColor: {r: 0.035294127, g: 0.11030072, b: 0.7058824, a: 1}
+    SmallAsteroidColor: {r: 0.035294127, g: 0.7058824, b: 0.18151046, a: 1}
   OffSet: {x: 20, y: 10}
   SpaceBetweenShips: 25
   BackGroundColor: {r: 0.16862746, g: 0.20000002, b: 0.24705884, a: 1}
