@@ -3284,13 +3284,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06098affbf17034ebd3b2377214fa5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReSpawnSound: {fileID: 2012396079}
   Settings: {fileID: 11400000, guid: 5c56750bb08b73940a377829adf2686a, type: 2}
-  HitTakenCanvas: {fileID: 717992665}
-  EndGameCanvas: {fileID: 1808055124}
-  Player: {fileID: 619928981}
   Camera: {fileID: 963194227}
   ScoreUI: {fileID: 1793997649}
+  ReSpawnSound: {fileID: 2012396079}
+  HitTakenCanvas: {fileID: 717992665}
+  EndGameCanvas: {fileID: 1808055124}
 --- !u!82 &2012396078
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3644,10 +3643,6 @@ PrefabInstance:
     - target: {fileID: 3666588243736881108, guid: c421501a80904a844acbf211b892da0e, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3666588243736881108, guid: c421501a80904a844acbf211b892da0e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4154999707766046062, guid: c421501a80904a844acbf211b892da0e, type: 3}
       propertyPath: m_RootOrder

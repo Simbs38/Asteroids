@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -11,24 +10,20 @@ public class Player : MonoBehaviour, IDamageable
     public int Points { get; private set; }
     public int Health { get; private set; }
 
-    public Bullet BulletPrefab;
-    public Rigidbody RBody;
-    public ParticleSystem LeftMotor;
-    public ParticleSystem RigthMotor;
-    public Joystick CurrentJoystick;
-
-    public AudioSource Sound
-    {
-        get
-        {
-            if (_sound == null)
-                _sound = GetComponent<AudioSource>();
-
-            return _sound;
-        }
-    }
-
-    private AudioSource _sound;
+    [SerializeField]
+    private Bullet BulletPrefab;
+    [SerializeField]
+    private Rigidbody RBody;
+    [SerializeField]
+    private ParticleSystem LeftMotor;
+    [SerializeField]
+    private ParticleSystem RigthMotor;
+    [SerializeField]
+    private Joystick CurrentJoystick;
+    [SerializeField]
+    private AudioSource Sound;
+    [SerializeField]
+    private MeshRenderer MeshR;
 
     #endregion Fields
 
@@ -38,16 +33,15 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        Health = Main.Instance.Settings.Player.StartingHealt;
+        Health = GameStateManager.Instance.Settings.Player.StartingHealt;
         Points = 0;
-        MeshRenderer meshR = transform.GetComponent<MeshRenderer>();
-        meshR.material.color = Main.Instance.Settings.Player.PlayerColor;
-        HealthUIManager.Instance.PopulateHealtUI(Main.Instance.Settings.Player.StartingHealt);
+        MeshR.material.color = GameStateManager.Instance.Settings.Player.PlayerColor;
+        HealthUIManager.Instance.PopulateHealtUI(GameStateManager.Instance.Settings.Player.StartingHealt);
     }
 
     private void FixedUpdate()
     {
-        if (!Main.Instance.IsGameRunning)
+        if (!GameStateManager.Instance.IsGameRunning)
             return;
 
         float movement = GetMovement();
@@ -56,17 +50,17 @@ public class Player : MonoBehaviour, IDamageable
         SetMotor(LeftMotor, 0 < movement, Mathf.Sign(rotation) == 1 && rotation != 0);
         SetMotor(RigthMotor, 0 < movement, Mathf.Sign(rotation) == -1 && rotation != 0);
 
-        RBody.AddForce((transform.forward * movement * Main.Instance.Settings.Player.MoveSpeed) - RBody.velocity, ForceMode.Force);
+        RBody.AddForce((transform.forward * movement * GameStateManager.Instance.Settings.Player.MoveSpeed) - RBody.velocity, ForceMode.Force);
     }
 
     private void Update()
     {
-        if (!Main.Instance.IsGameRunning)
+        if (!GameStateManager.Instance.IsGameRunning)
             return;
 
         float rotation = GetRotation();
         Vector3 currentEulerRotation = transform.eulerAngles;
-        currentEulerRotation.y += rotation * Time.smoothDeltaTime * Main.Instance.Settings.Player.RotateSpeed;
+        currentEulerRotation.y += rotation * Time.smoothDeltaTime * GameStateManager.Instance.Settings.Player.RotateSpeed;
         transform.localEulerAngles = currentEulerRotation;
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -80,18 +74,26 @@ public class Player : MonoBehaviour, IDamageable
     public void Shoot()
     {
         Bullet bullet = Instantiate(BulletPrefab);
-        Vector3 spwanPosition = transform.position + transform.forward * Main.Instance.Settings.Bullet.ShottingDistance;
+        Vector3 spwanPosition = transform.position + transform.forward * GameStateManager.Instance.Settings.Bullet.ShottingDistance;
         bullet.Shooting(spwanPosition, transform.forward);
     }
 
-    public void AddScore() => Points += Main.Instance.Settings.Asteroid.HitPoints;
+    public void AddScore() => Points += GameStateManager.Instance.Settings.Asteroid.HitPoints;
 
-    public void TakeHit()
+    public void TakeDamage()
     {
         Sound.Play();
         Health--;
         ResetPosition();
+        HealthUIManager.Instance.RemoveHealt();
+
+        if (Health == 0)
+            GameStateManager.Instance.EndGame(Points);
+        else
+            GameStateManager.Instance.PauseGame();
     }
+
+    public bool CreateExplosion() => false;
 
     private float GetRotation()
     {
@@ -131,17 +133,4 @@ public class Player : MonoBehaviour, IDamageable
     }
 
     #endregion Methods
-
-    public void TakeDamage()
-    {
-        TakeHit();
-        HealthUIManager.Instance.RemoveHealt();
-
-        if (Health == 0)
-            Main.Instance.EndGame(Points);
-        else
-            Main.Instance.PauseGame();
-    }
-
-    public bool CreateExplosion() => false;
 }

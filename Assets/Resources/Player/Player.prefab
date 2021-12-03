@@ -9617,10 +9617,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4154999707766046062}
+  - component: {fileID: 4477492020818107011}
   - component: {fileID: 4477492020818107008}
   - component: {fileID: 4477492020818107009}
   - component: {fileID: 4477492020818107023}
-  - component: {fileID: 4477492020818107011}
   - component: {fileID: 4477492020818107022}
   - component: {fileID: 2266005556742937304}
   - component: {fileID: 5573827723304460959}
@@ -9647,6 +9647,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4477492020818107011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3666588243736881108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8e9223d1fd2ba4ea4d6e040ee1ccb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 1475895002218605707, guid: f3dc629ff91b3634a9cce6f84ee4b8d3, type: 3}
+  RBody: {fileID: 4477492020818107008}
+  LeftMotor: {fileID: 1399724134}
+  RigthMotor: {fileID: 66060864}
+  CurrentJoystick: {fileID: 0}
+  Sound: {fileID: 4477492020818107023}
+  MeshR: {fileID: 2266005556742937304}
 --- !u!54 &4477492020818107008
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9772,22 +9791,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4477492020818107011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3666588243736881108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a8e9223d1fd2ba4ea4d6e040ee1ccb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 1475895002218605707, guid: f3dc629ff91b3634a9cce6f84ee4b8d3, type: 3}
-  RBody: {fileID: 4477492020818107008}
-  LeftMotor: {fileID: 1399724134}
-  RigthMotor: {fileID: 66060864}
 --- !u!114 &4477492020818107022
 MonoBehaviour:
   m_ObjectHideFlags: 0

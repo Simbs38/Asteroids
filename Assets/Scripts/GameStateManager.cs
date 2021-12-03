@@ -2,11 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Main : MonoBehaviour
+public class GameStateManager : MonoBehaviour
 {
     #region Fields
 
-    public static Main Instance;
+    public static GameStateManager Instance;
     public bool IsGameRunning { get; private set; }
     public CustomSettings Settings;
     public Camera Camera;
@@ -14,8 +14,10 @@ public class Main : MonoBehaviour
 
     [SerializeField]
     private AudioSource ReSpawnSound;
+
     [SerializeField]
     private Canvas HitTakenCanvas;
+
     [SerializeField]
     private Canvas EndGameCanvas;
 
@@ -45,7 +47,6 @@ public class Main : MonoBehaviour
         EndGameCanvas.gameObject.SetActive(true);
         PlayerPrefs.SetInt("HighScore", Mathf.Max(playerPoints, PlayerPrefs.GetInt("HighScore", 0)));
     }
-
 
     private IEnumerator StopGame()
     {

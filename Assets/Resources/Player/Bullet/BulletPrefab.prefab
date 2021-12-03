@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParticleEffect: {fileID: 555196359426400684}
   BulletDrag: {fileID: 6281885743647685339}
+  MeshR: {fileID: 1475895002218605710}
+  BulletSound: {fileID: 710867135268022786}
 --- !u!54 &7241486057904395549
 Rigidbody:
   m_ObjectHideFlags: 0

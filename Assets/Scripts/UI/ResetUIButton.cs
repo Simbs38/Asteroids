@@ -2,13 +2,8 @@ using UnityEngine;
 
 public class ResetUIButton : MonoBehaviour
 {
-    #region Fields
-
-    public HighScoreUI ItemToUpdate;
-
-    #endregion Fields
-
-    #region Unity Methods
+    [SerializeField]
+    private HighScoreUI ItemToUpdate;
 
     private void Awake()
     {
@@ -16,15 +11,9 @@ public class ResetUIButton : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    #endregion Unity Methods
-
-    #region Methods
-
     public void ResetScore()
     {
         PlayerPrefs.DeleteKey("HighScore");
         ItemToUpdate.UpdateScore();
     }
-
-    #endregion Methods
 }
