@@ -83,7 +83,7 @@ public class AsteroidsManager : MonoBehaviour
         Asteroid tmp = Instantiate(prefab);
 
         tmp.transform.position = Main.Instance.Camera.ScreenToWorldPoint(screenPosition);
-        tmp.Direction = (Main.Instance.Player.transform.position - tmp.transform.position).normalized;
+        tmp.Direction = (Player.Instance.transform.position - tmp.transform.position).normalized;
 
         return tmp;
     }

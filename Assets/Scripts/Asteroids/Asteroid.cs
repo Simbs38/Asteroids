@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(ScreenTransport))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(MeshRenderer))]
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour, IDamageable
 {
     #region Fields
 
@@ -71,7 +71,7 @@ public class Asteroid : MonoBehaviour
     {
         if (other.GetComponent<Player>() != null)
         {
-            Main.Instance.HitTaken();
+            Player.Instance.TakeDamage();
             Dispose(forceDestoy: true);
         }
     }
@@ -90,7 +90,7 @@ public class Asteroid : MonoBehaviour
         else
             StartCoroutine(LateDestroy());
 
-        if (!forceDestoy && AsteroidToGenerate != null && Main.Instance.Player.Health != 0)
+        if (!forceDestoy && AsteroidToGenerate != null && Player.Instance.Health != 0)
         {
             Vector3 directionA = Quaternion.Euler(0, 30, 0) * Direction;
             Vector3 directionB = Quaternion.Euler(0, -30, 0) * Direction;
@@ -112,4 +112,13 @@ public class Asteroid : MonoBehaviour
     }
 
     #endregion Methods
+
+    public void TakeDamage()
+    {
+        AsteroidsManager.Instance.DestroyAsteroid(this);
+        Player.Instance.AddScore();
+        Main.Instance.ScoreUI.text = Player.Instance.Points.ToString();
+    }
+
+    public bool CreateExplosion() => true;
 }
