@@ -4,22 +4,7 @@ using UnityEngine;
 
 public class HealthUIIcon : MonoBehaviour
 {
-    #region Fields
-
     public MeshFilter ShipMeshF;
-
-    #endregion Fields
-
-    #region Unity Methods
-
-    private void Start()
-    {
-        ShipMeshF = transform.GetChild(0).GetComponent<MeshFilter>();
-    }
-
-    #endregion Unity Methods
-
-    #region Methods
 
     public void SetWireframe()
     {
@@ -52,6 +37,4 @@ public class HealthUIIcon : MonoBehaviour
     }
 
     private Tuple<int, int> OrderLine(int opA, int opB) => opA < opB ? new Tuple<int, int>(opA, opB) : new Tuple<int, int>(opB, opA);
-
-    #endregion Methods
 }

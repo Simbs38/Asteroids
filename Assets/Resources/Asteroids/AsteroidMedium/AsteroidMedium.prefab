@@ -93,6 +93,9 @@ MonoBehaviour:
   Direction: {x: 0, y: 0, z: 0}
   Type: 2
   AsteroidToGenerate: {fileID: 1643656406105096494, guid: 4a1708f71dddc5e4587cbec01add04b9, type: 3}
+  MeshR: {fileID: 2627158242642911951}
+  Sound: {fileID: 6581187300725383202}
+  Collider: {fileID: 2675936494571516586}
 --- !u!82 &6581187300725383202
 AudioSource:
   m_ObjectHideFlags: 0

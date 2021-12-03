@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefca9c9a5ecc76458500d1f8c2c7f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipMeshF: {fileID: 0}
+  ShipMeshF: {fileID: 2933289991983631536}
 --- !u!1 &9138968674845632193
 GameObject:
   m_ObjectHideFlags: 0

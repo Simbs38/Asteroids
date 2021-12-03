@@ -4,52 +4,23 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class Bullet : MonoBehaviour
 {
-    #region Fields
-
-    public ParticleSystem ParticleEffect;
-    public ParticleSystem BulletDrag;
-
-    public MeshRenderer MeshR
-    {
-        get
-        {
-            if (_meshR == null)
-                _meshR = GetComponent<MeshRenderer>();
-
-            return _meshR;
-        }
-    }
-
-    public AudioSource BulletSound
-    {
-        get
-        {
-            if (_bulletSound == null)
-                _bulletSound = GetComponent<AudioSource>();
-
-            return _bulletSound;
-        }
-    }
-
+    [SerializeField]
+    private ParticleSystem ParticleEffect;
+    [SerializeField]
+    private ParticleSystem BulletDrag;
+    [SerializeField]
+    private MeshRenderer MeshR;
+    [SerializeField]
+    private AudioSource BulletSound;
     private bool _used = false;
 
-    private AudioSource _bulletSound;
-    private MeshRenderer _meshR;
-
-    #endregion Fields
-
-    #region Unity Methods
-
-    private void Update() => transform.position += transform.forward * Main.Instance.Settings.Bullet.Speed;
+    private void Update() => transform.position += transform.forward * GameStateManager.Instance.Settings.Bullet.Speed;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_used)
-            return;
-
         IDamageable tmp = other.GetComponent<IDamageable>();
 
-        if (tmp == null)
+        if (tmp == null || _used)
             return;
 
         _used = true;
@@ -61,10 +32,6 @@ public class Bullet : MonoBehaviour
 
         StartCoroutine(LateDestroy());
     }
-
-    #endregion Unity Methods
-
-    #region Methods
 
     public void Shooting(Vector3 position, Vector3 direction)
     {
@@ -89,6 +56,4 @@ public class Bullet : MonoBehaviour
         yield return new WaitForSeconds(2);
         Destroy(tmp.gameObject);
     }
-
-    #endregion Methods
 }

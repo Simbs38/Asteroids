@@ -12,30 +12,12 @@ public class Asteroid : MonoBehaviour, IDamageable
     public AsteroidType Type;
     public Asteroid AsteroidToGenerate;
 
-    public MeshRenderer MeshR
-    {
-        get
-        {
-            if (_meshR == null)
-                _meshR = GetComponent<MeshRenderer>();
-
-            return _meshR;
-        }
-    }
-
-    public AudioSource Sound
-    {
-        get
-        {
-            if (_sound == null)
-                _sound = GetComponent<AudioSource>();
-
-            return _sound;
-        }
-    }
-
-    private AudioSource _sound;
-    private MeshRenderer _meshR;
+    [SerializeField]
+    private MeshRenderer MeshR;
+    [SerializeField]
+    private AudioSource Sound;
+    [SerializeField]
+    private Collider Collider;
 
     #endregion Fields
 
@@ -43,27 +25,25 @@ public class Asteroid : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        MeshRenderer meshR = transform.GetComponent<MeshRenderer>();
-
         switch (Type)
         {
             case AsteroidType.BigAsteroid:
-                meshR.material.SetColor("_Color", Main.Instance.Settings.Asteroid.BigAsteroidColor);
+                MeshR.material.SetColor("_Color", GameStateManager.Instance.Settings.Asteroid.BigAsteroidColor);
                 break;
 
             case AsteroidType.MediumAsteroid:
-                meshR.material.SetColor("_Color", Main.Instance.Settings.Asteroid.MediumAsteroidColor);
+                MeshR.material.SetColor("_Color", GameStateManager.Instance.Settings.Asteroid.MediumAsteroidColor);
                 break;
 
             case AsteroidType.SmallAsteroid:
-                meshR.material.SetColor("_Color", Main.Instance.Settings.Asteroid.SmallAsteroidColor);
+                MeshR.material.SetColor("_Color", GameStateManager.Instance.Settings.Asteroid.SmallAsteroidColor);
                 break;
         }
     }
 
     private void Update()
     {
-        transform.position += Direction * Time.deltaTime * Main.Instance.Settings.Asteroid.AsteroidSpeed;
+        transform.position += Direction * Time.deltaTime * GameStateManager.Instance.Settings.Asteroid.AsteroidSpeed;
         transform.rotation = Quaternion.identity;
     }
 
@@ -106,19 +86,19 @@ public class Asteroid : MonoBehaviour, IDamageable
             Sound.Play();
 
         MeshR.enabled = false;
-        GetComponent<Collider>().enabled = false;
+        Collider.enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }
-
-    #endregion Methods
 
     public void TakeDamage()
     {
         AsteroidsManager.Instance.DestroyAsteroid(this);
         Player.Instance.AddScore();
-        Main.Instance.ScoreUI.text = Player.Instance.Points.ToString();
+        GameStateManager.Instance.ScoreUI.text = Player.Instance.Points.ToString();
     }
 
     public bool CreateExplosion() => true;
+
+    #endregion Methods
 }
