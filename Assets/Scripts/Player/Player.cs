@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     #region Fields
+
+    public static Player Instance;
 
     public int Points { get; private set; }
     public int Health { get; private set; }
@@ -31,12 +34,15 @@ public class Player : MonoBehaviour
 
     #region Unity Methods
 
+    private void Awake() => Instance = this;
+
     private void Start()
     {
         Health = Main.Instance.Settings.Player.StartingHealt;
         Points = 0;
         MeshRenderer meshR = transform.GetComponent<MeshRenderer>();
         meshR.material.color = Main.Instance.Settings.Player.PlayerColor;
+        HealthUIManager.Instance.PopulateHealtUI(Main.Instance.Settings.Player.StartingHealt);
     }
 
     private void FixedUpdate()
@@ -125,4 +131,17 @@ public class Player : MonoBehaviour
     }
 
     #endregion Methods
+
+    public void TakeDamage()
+    {
+        TakeHit();
+        HealthUIManager.Instance.RemoveHealt();
+
+        if (Health == 0)
+            Main.Instance.EndGame(Points);
+        else
+            Main.Instance.PauseGame();
+    }
+
+    public bool CreateExplosion() => false;
 }

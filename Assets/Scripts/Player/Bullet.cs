@@ -47,20 +47,17 @@ public class Bullet : MonoBehaviour
         if (_used)
             return;
 
+        IDamageable tmp = other.GetComponent<IDamageable>();
+
+        if (tmp == null)
+            return;
+
         _used = true;
 
-        if (other.GetComponent<Player>() != null)
-            Main.Instance.HitTaken();
-        else
-        {
-            Asteroid asteroid = other.GetComponent<Asteroid>();
+        tmp.TakeDamage();
 
-            if (asteroid != null)
-            {
-                StartCoroutine(CreateExplosion(asteroid.transform.position));
-                Main.Instance.HitAsteroid(asteroid);
-            }
-        }
+        if(tmp.CreateExplosion())
+            StartCoroutine(CreateExplosion(other.transform.position));
 
         StartCoroutine(LateDestroy());
     }
