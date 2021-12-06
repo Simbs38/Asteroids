@@ -99,7 +99,7 @@ public class AsteroidsManager : MonoBehaviour
         tmp.InitAsteroid(Settings.AsteroidSpeed, GetAsteroidColor(tmp.Type), Camera, this);
 
         tmp.transform.position = Camera.ScreenToWorldPoint(screenPosition);
-        tmp.Direction = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+        tmp.Direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
 
         return tmp;
     }
