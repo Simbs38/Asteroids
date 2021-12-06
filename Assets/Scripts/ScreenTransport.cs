@@ -6,12 +6,13 @@ public class ScreenTransport : MonoBehaviour
 {
     [SerializeField]
     private Camera Camera;
+    private readonly int FloorLayer = 6;
 
     public void SetCamera(Camera camera) => Camera = camera;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent == null || other.transform.parent.name != "Floor")
+        if (other.gameObject.layer != FloorLayer)
             return;
 
         Vector3 screenPosition = Camera.WorldToScreenPoint(transform.position);

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField]
     private HealthUIManager HealthUI;
+    private Queue<Bullet> _bulletPool;
 
     #endregion Fields
 
@@ -52,6 +54,14 @@ public class Player : MonoBehaviour, IDamageable
         Points = 0;
         MeshR.material.color = Settings.PlayerColor;
         HealthUI.PopulateHealtUI(Settings.StartingHealt);
+        _bulletPool = new Queue<Bullet>();
+
+        for (int i = 0; i < Settings.BulletPoolSize; i++)
+        {
+            Bullet tmp = Instantiate(BulletPrefab);
+            _bulletPool.Enqueue(tmp);
+            tmp.Init(this);
+        }
     }
 
     private void FixedUpdate()
@@ -88,10 +98,15 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Shoot()
     {
-        Bullet bullet = Instantiate(BulletPrefab);
+        if(_bulletPool.Count == 0)
+            return;
+
+        Bullet bullet = _bulletPool.Dequeue();
         Vector3 spwanPosition = transform.position + transform.forward * bullet.ShootingDistance;
         bullet.Shooting(spwanPosition, transform.forward);
     }
+
+    public void RecicleBullet(Bullet bullet) => _bulletPool.Enqueue(bullet);
 
     public void AddScore(int points)
     {
@@ -111,8 +126,6 @@ public class Player : MonoBehaviour, IDamageable
         else
             Manager.PauseGame();
     }
-
-    public bool CreateExplosion() => false;
 
     public bool IsSucessfullHit(out int hitPoints)
     {

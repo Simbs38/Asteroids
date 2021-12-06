@@ -93,8 +93,6 @@ public class Asteroid : MonoBehaviour, IDamageable
 
     public void TakeDamage() => _asteroidManager.DestroyAsteroid(this);
 
-    public bool CreateExplosion() => true;
-
     public bool IsSucessfullHit(out int hitPoints)
     {
         hitPoints = _asteroidManager.HitPoints;
