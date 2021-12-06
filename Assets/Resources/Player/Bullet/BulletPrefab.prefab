@@ -103,6 +103,7 @@ MonoBehaviour:
   BulletDrag: {fileID: 6281885743647685339}
   MeshR: {fileID: 1475895002218605710}
   BulletSound: {fileID: 710867135268022786}
+  Settings: {fileID: 11400000, guid: 54d79e1a44f2bc643994b9869ebec0c2, type: 2}
 --- !u!54 &7241486057904395549
 Rigidbody:
   m_ObjectHideFlags: 0

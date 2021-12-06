@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class AsteroidSettings
+
+[CreateAssetMenu(menuName = "Scriptable Objects/AsteroidSettings")]
+public class AsteroidSettings : ScriptableObject
 {
     [Header("AsteroidManager Settings")]
 

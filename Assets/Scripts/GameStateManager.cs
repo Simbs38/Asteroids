@@ -6,10 +6,7 @@ public class GameStateManager : MonoBehaviour
 {
     #region Fields
 
-    public static GameStateManager Instance;
     public bool IsGameRunning { get; private set; }
-    public CustomSettings Settings;
-    public Camera Camera;
     public Text ScoreUI;
 
     [SerializeField]
@@ -20,12 +17,12 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField]
     private Canvas EndGameCanvas;
+    [SerializeField]
+    private AsteroidsManager AsteroidsManager;
 
     #endregion Fields
 
     #region UnityMethods
-
-    private void Awake() => Instance = this;
 
     private void Start() => IsGameRunning = true;
 
@@ -37,7 +34,7 @@ public class GameStateManager : MonoBehaviour
     {
         HitTakenCanvas.gameObject.SetActive(true);
         IsGameRunning = false;
-        AsteroidsManager.Instance.DestroyAsteroids();
+        AsteroidsManager.DestroyAsteroids();
         StartCoroutine(StopGame());
     }
 

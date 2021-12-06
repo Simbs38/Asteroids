@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class Bullet : MonoBehaviour
 {
+    public float ShootingDistance => Settings.ShottingDistance;
+
     [SerializeField]
     private ParticleSystem ParticleEffect;
     [SerializeField]
@@ -12,9 +14,13 @@ public class Bullet : MonoBehaviour
     private MeshRenderer MeshR;
     [SerializeField]
     private AudioSource BulletSound;
+    [SerializeField]
+    private BulletSettings Settings;
+    [SerializeField]
+    private Player Player;
     private bool _used = false;
 
-    private void Update() => transform.position += transform.forward * GameStateManager.Instance.Settings.Bullet.Speed;
+    private void Update() => transform.position += transform.forward * Settings.Speed;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,6 +35,9 @@ public class Bullet : MonoBehaviour
 
         if(tmp.CreateExplosion())
             StartCoroutine(CreateExplosion(other.transform.position));
+
+        if (tmp.IsSucessfullHit(out int hitPoints))
+            Player.AddScore(hitPoints);
 
         StartCoroutine(LateDestroy());
     }

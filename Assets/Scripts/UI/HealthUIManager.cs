@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class HealthUIManager : MonoBehaviour
 {
-    public static HealthUIManager Instance;
     [SerializeField]
     private Transform HealtContainer;
     [SerializeField]
     private HealthUIIcon HealtPrefabUp;
     [SerializeField]
     private HealthUIIcon HealtPrefabDown;
+    [SerializeField]
+    private UISettings Settings;
     private List<HealthUIIcon> _currentIcons;
     private List<HealthUIIcon> _usedItems;
 
-    private void Awake() => Instance = this;
-
     public void PopulateHealtUI(int startingHealt)
     {
-        Vector3 currentPosition = -GameStateManager.Instance.Settings.UI.OffSet;
+        Vector3 currentPosition = -Settings.OffSet;
         _currentIcons = new List<HealthUIIcon>();
         _usedItems = new List<HealthUIIcon>();
 
@@ -26,9 +25,9 @@ public class HealthUIManager : MonoBehaviour
         {
             HealthUIIcon tmp = Instantiate(i % 2 == 0 ? HealtPrefabUp : HealtPrefabDown, HealtContainer, true);
             tmp.transform.localPosition = currentPosition;
-            tmp.transform.localScale = Vector3.one * GameStateManager.Instance.Settings.UI.HealtIconsSize;
+            tmp.transform.localScale = Vector3.one * Settings.HealtIconsSize;
             tmp.transform.localEulerAngles = new Vector3(90, -90, 90);
-            currentPosition -= Vector3.right * GameStateManager.Instance.Settings.UI.SpaceBetweenShips;
+            currentPosition -= Vector3.right * Settings.SpaceBetweenShips;
             _currentIcons.Add(tmp);
         }
 

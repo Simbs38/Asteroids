@@ -14,36 +14,36 @@ public class Asteroid : MonoBehaviour, IDamageable
 
     [SerializeField]
     private MeshRenderer MeshR;
+
     [SerializeField]
     private AudioSource Sound;
+
     [SerializeField]
     private Collider Collider;
+
+    [SerializeField]
+    private ScreenTransport ScreenTransporter;
+
+    private float _speed;
+    private AsteroidsManager _asteroidManager;
 
     #endregion Fields
 
     #region Unity Methods
 
-    private void Start()
+    public void InitAsteroid(float speed, Color color, Camera camera, AsteroidsManager manager)
     {
-        switch (Type)
-        {
-            case AsteroidType.BigAsteroid:
-                MeshR.material.SetColor("_Color", GameStateManager.Instance.Settings.Asteroid.BigAsteroidColor);
-                break;
-
-            case AsteroidType.MediumAsteroid:
-                MeshR.material.SetColor("_Color", GameStateManager.Instance.Settings.Asteroid.MediumAsteroidColor);
-                break;
-
-            case AsteroidType.SmallAsteroid:
-                MeshR.material.SetColor("_Color", GameStateManager.Instance.Settings.Asteroid.SmallAsteroidColor);
-                break;
-        }
+        _speed = speed;
+        _asteroidManager = manager;
+        MeshR.material.SetColor("_Color", color);
+        ScreenTransporter.SetCamera(camera);
     }
+
+    public void SetColor(Color color) => MeshR.material.SetColor("_Color", color);
 
     private void Update()
     {
-        transform.position += Direction * Time.deltaTime * GameStateManager.Instance.Settings.Asteroid.AsteroidSpeed;
+        transform.position += Direction * Time.deltaTime * _speed;
         transform.rotation = Quaternion.identity;
     }
 
@@ -51,7 +51,7 @@ public class Asteroid : MonoBehaviour, IDamageable
     {
         if (other.GetComponent<Player>() != null)
         {
-            Player.Instance.TakeDamage();
+            other.GetComponent<Player>().TakeDamage();
             Dispose(forceDestoy: true);
         }
     }
@@ -70,13 +70,13 @@ public class Asteroid : MonoBehaviour, IDamageable
         else
             StartCoroutine(LateDestroy());
 
-        if (!forceDestoy && AsteroidToGenerate != null && Player.Instance.Health != 0)
+        if (!forceDestoy && AsteroidToGenerate != null)
         {
             Vector3 directionA = Quaternion.Euler(0, 30, 0) * Direction;
             Vector3 directionB = Quaternion.Euler(0, -30, 0) * Direction;
 
-            AsteroidsManager.Instance.CreateReplicas(AsteroidToGenerate, transform.position, directionA);
-            AsteroidsManager.Instance.CreateReplicas(AsteroidToGenerate, transform.position, directionB);
+            _asteroidManager.CreateReplicas(AsteroidToGenerate, transform.position, directionA);
+            _asteroidManager.CreateReplicas(AsteroidToGenerate, transform.position, directionB);
         }
     }
 
@@ -91,14 +91,15 @@ public class Asteroid : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    public void TakeDamage()
-    {
-        AsteroidsManager.Instance.DestroyAsteroid(this);
-        Player.Instance.AddScore();
-        GameStateManager.Instance.ScoreUI.text = Player.Instance.Points.ToString();
-    }
+    public void TakeDamage() => _asteroidManager.DestroyAsteroid(this);
 
     public bool CreateExplosion() => true;
+
+    public bool IsSucessfullHit(out int hitPoints)
+    {
+        hitPoints = _asteroidManager.HitPoints;
+        return true;
+    }
 
     #endregion Methods
 }
