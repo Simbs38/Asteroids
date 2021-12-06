@@ -15,7 +15,16 @@ The game can be played using the WASD or arrows keys and the space bar to shoot.
 
 ## Settings
 
-The project comes with a [Settings](Assets/Settings.asset) file in the Assets folder. This file can be used to change the game parameters, such as speeds for all objects and colors between others.
+To costumize the project use the Scriptable Objects in the Settings folder by adjusting the values presented in the inspector.
+
+## Assets Used
+
++ [On Screen Controllers](https://assetstore.unity.com/packages/tools/input-management/joystick-pack-107631)
++ [Sounds](https://www.epidemicsound.com/music)
+
+#### Unity Version: 2020.3.19f1
+
+
 
 
 
