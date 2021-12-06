@@ -488,6 +488,7 @@ MonoBehaviour:
   HealtContainer: {fileID: 1588236943}
   HealtPrefabUp: {fileID: -3632426485204361797, guid: 56dc171c0ea39a349817c581c578a2cb, type: 3}
   HealtPrefabDown: {fileID: -7247159509889311513, guid: 6d60549cc7f061c4fa00a22f6fa8288b, type: 3}
+  Settings: {fileID: 11400000, guid: ddfe1ef7cfa795c47becbccb09b9d0fa, type: 2}
 --- !u!1 &256443548
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,8 +971,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 2012396076}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 38.5, y: -23.9, z: 0}
 --- !u!1 &717992661
 GameObject:
@@ -1480,11 +1481,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2012396076}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &977079539
@@ -3252,7 +3253,7 @@ GameObject:
   - component: {fileID: 2012396078}
   - component: {fileID: 2012396079}
   m_Layer: 0
-  m_Name: Main
+  m_Name: GameStateManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3268,9 +3269,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 963194228}
+  - {fileID: 705507995}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2012396077
 MonoBehaviour:
@@ -3284,12 +3287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06098affbf17034ebd3b2377214fa5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Settings: {fileID: 11400000, guid: 5c56750bb08b73940a377829adf2686a, type: 2}
-  Camera: {fileID: 963194227}
   ScoreUI: {fileID: 1793997649}
   ReSpawnSound: {fileID: 2012396079}
   HitTakenCanvas: {fileID: 717992665}
   EndGameCanvas: {fileID: 1808055124}
+  AsteroidsManager: {fileID: 2043710342}
 --- !u!82 &2012396078
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3519,7 +3521,7 @@ Transform:
   - {fileID: 2036525157}
   - {fileID: 1590720677}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2036525156
 GameObject:
@@ -3633,6 +3635,9 @@ MonoBehaviour:
   AsteroidBig: {fileID: 613993389580480742, guid: fcb5606c04604424db6a4d224fa8557c, type: 3}
   AsteroidMedium: {fileID: 2675936494571516591, guid: 858c7ce500e25a640b8e1019153337e1, type: 3}
   AsteroidSmall: {fileID: 1643656406105096494, guid: 4a1708f71dddc5e4587cbec01add04b9, type: 3}
+  Settings: {fileID: 11400000, guid: 7c5ec68ede3df1049a2b5b9572f51719, type: 2}
+  Camera: {fileID: 963194227}
+  Manager: {fileID: 2012396077}
 --- !u!1001 &4477492020347209494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3646,7 +3651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4154999707766046062, guid: c421501a80904a844acbf211b892da0e, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4154999707766046062, guid: c421501a80904a844acbf211b892da0e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3689,8 +3694,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4477492020818107011, guid: c421501a80904a844acbf211b892da0e, type: 3}
+      propertyPath: Manager
+      value: 
+      objectReference: {fileID: 2012396077}
+    - target: {fileID: 4477492020818107011, guid: c421501a80904a844acbf211b892da0e, type: 3}
+      propertyPath: ScoreUI
+      value: 
+      objectReference: {fileID: 1793997649}
+    - target: {fileID: 4477492020818107011, guid: c421501a80904a844acbf211b892da0e, type: 3}
+      propertyPath: HealthUI
+      value: 
+      objectReference: {fileID: 239879819}
+    - target: {fileID: 4477492020818107011, guid: c421501a80904a844acbf211b892da0e, type: 3}
       propertyPath: CurrentJoystick
       value: 
       objectReference: {fileID: 922025837}
+    - target: {fileID: 4477492020818107022, guid: c421501a80904a844acbf211b892da0e, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 963194227}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c421501a80904a844acbf211b892da0e, type: 3}

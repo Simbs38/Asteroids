@@ -9666,6 +9666,7 @@ MonoBehaviour:
   CurrentJoystick: {fileID: 0}
   Sound: {fileID: 4477492020818107023}
   MeshR: {fileID: 2266005556742937304}
+  Settings: {fileID: 11400000, guid: 67b4bbbeab6edf8469a44c4ff30304b7, type: 2}
 --- !u!54 &4477492020818107008
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9803,6 +9804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dc37f5e13a1bc4a8bd9f8ef0d492ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Camera: {fileID: 0}
 --- !u!23 &2266005556742937304
 MeshRenderer:
   m_ObjectHideFlags: 0

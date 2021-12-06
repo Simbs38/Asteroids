@@ -4,12 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ScreenTransport : MonoBehaviour
 {
+    [SerializeField]
+    private Camera Camera;
+
+    public void SetCamera(Camera camera) => Camera = camera;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.parent == null || other.transform.parent.name != "Floor")
             return;
 
-        Vector3 screenPosition = GameStateManager.Instance.Camera.WorldToScreenPoint(transform.position);
+        Vector3 screenPosition = Camera.WorldToScreenPoint(transform.position);
 
         if (screenPosition.x < 0)
             screenPosition.x = Screen.width;
@@ -23,7 +28,7 @@ public class ScreenTransport : MonoBehaviour
         if (Screen.height < screenPosition.y)
             screenPosition.y = 0;
 
-        Vector3 newPosition = GameStateManager.Instance.Camera.ScreenToWorldPoint(screenPosition);
+        Vector3 newPosition = Camera.ScreenToWorldPoint(screenPosition);
         newPosition.y = 0;
         transform.position = newPosition;
     }

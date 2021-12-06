@@ -13,20 +13,31 @@ public class AsteroidsManager : MonoBehaviour
 {
     #region Fields
 
-    public static AsteroidsManager Instance;
+    public int HitPoints => Settings.HitPoints;
+
     [SerializeField]
     private Asteroid AsteroidBig;
+
     [SerializeField]
     private Asteroid AsteroidMedium;
+
     [SerializeField]
     private Asteroid AsteroidSmall;
+
+    [SerializeField]
+    private AsteroidSettings Settings;
+
+    [SerializeField]
+    private Camera Camera;
+
+    [SerializeField]
+    private GameStateManager Manager;
+
     private List<Asteroid> _existingAsteroids;
 
     #endregion Fields
 
     #region Unity Methods
-
-    private void Awake() => Instance = this;
 
     private void Start()
     {
@@ -57,6 +68,7 @@ public class AsteroidsManager : MonoBehaviour
     public void CreateReplicas(Asteroid asteroidPrefab, Vector3 position, Vector3 direction)
     {
         Asteroid tmp = Instantiate(asteroidPrefab);
+        tmp.InitAsteroid(Settings.AsteroidSpeed, GetAsteroidColor(tmp.Type), Camera, this);
         tmp.transform.position = position;
         tmp.Direction = direction;
         _existingAsteroids.Add(tmp);
@@ -66,11 +78,11 @@ public class AsteroidsManager : MonoBehaviour
     {
         while (true)
         {
-            float waitTime = Random.Range(GameStateManager.Instance.Settings.Asteroid.MinWaitTime, GameStateManager.Instance.Settings.Asteroid.MaxWaitTime);
+            float waitTime = Random.Range(Settings.MinWaitTime, Settings.MaxWaitTime);
 
             yield return new WaitForSeconds(waitTime);
 
-            if (GameStateManager.Instance.IsGameRunning)
+            if (Manager.IsGameRunning)
                 _existingAsteroids.Add(CreateAsteroid());
         }
     }
@@ -81,12 +93,13 @@ public class AsteroidsManager : MonoBehaviour
         float positionY = Random.Range(0, Screen.height);
         GetScreenEdgePosition(ref positionX, ref positionY);
 
-        Vector3 screenPosition = new Vector3(positionX, positionY, GameStateManager.Instance.Camera.transform.position.y);
+        Vector3 screenPosition = new Vector3(positionX, positionY, Camera.transform.position.y);
         Asteroid prefab = GetAsteroidPrefabToGenerate();
         Asteroid tmp = Instantiate(prefab);
+        tmp.InitAsteroid(Settings.AsteroidSpeed, GetAsteroidColor(tmp.Type), Camera, this);
 
-        tmp.transform.position = GameStateManager.Instance.Camera.ScreenToWorldPoint(screenPosition);
-        tmp.Direction = (Player.Instance.transform.position - tmp.transform.position).normalized;
+        tmp.transform.position = Camera.ScreenToWorldPoint(screenPosition);
+        tmp.Direction = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
 
         return tmp;
     }
@@ -103,9 +116,9 @@ public class AsteroidsManager : MonoBehaviour
 
     private Asteroid GetAsteroidPrefabToGenerate()
     {
-         Asteroid ans = AsteroidBig;
+        Asteroid ans = AsteroidBig;
 
-        if (GameStateManager.Instance.Settings.Asteroid.GenerateRandomSizeAsteroids)
+        if (Settings.GenerateRandomSizeAsteroids)
         {
             int option = Random.Range(0, 3);
 
@@ -122,6 +135,23 @@ public class AsteroidsManager : MonoBehaviour
         }
 
         return ans;
+    }
+
+    private Color GetAsteroidColor(AsteroidType type)
+    {
+        switch (type)
+        {
+            case AsteroidType.BigAsteroid:
+                return Settings.BigAsteroidColor;
+
+            case AsteroidType.MediumAsteroid:
+                return Settings.MediumAsteroidColor;
+
+            case AsteroidType.SmallAsteroid:
+                return Settings.SmallAsteroidColor;
+        }
+
+        return Color.black;
     }
 
     #endregion Methods

@@ -1,47 +1,62 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class Player : MonoBehaviour, IDamageable
 {
     #region Fields
 
-    public static Player Instance;
-
     public int Points { get; private set; }
     public int Health { get; private set; }
 
     [SerializeField]
     private Bullet BulletPrefab;
+
     [SerializeField]
     private Rigidbody RBody;
+
     [SerializeField]
     private ParticleSystem LeftMotor;
+
     [SerializeField]
     private ParticleSystem RigthMotor;
+
     [SerializeField]
     private Joystick CurrentJoystick;
+
     [SerializeField]
     private AudioSource Sound;
+
     [SerializeField]
     private MeshRenderer MeshR;
+
+    [SerializeField]
+    private Text ScoreUI;
+
+    [SerializeField]
+    private PlayerSettings Settings;
+
+    [SerializeField]
+    private GameStateManager Manager;
+
+    [SerializeField]
+    private HealthUIManager HealthUI;
 
     #endregion Fields
 
     #region Unity Methods
 
-    private void Awake() => Instance = this;
-
     private void Start()
     {
-        Health = GameStateManager.Instance.Settings.Player.StartingHealt;
+        Health = Settings.StartingHealt;
         Points = 0;
-        MeshR.material.color = GameStateManager.Instance.Settings.Player.PlayerColor;
-        HealthUIManager.Instance.PopulateHealtUI(GameStateManager.Instance.Settings.Player.StartingHealt);
+        MeshR.material.color = Settings.PlayerColor;
+        HealthUI.PopulateHealtUI(Settings.StartingHealt);
     }
 
     private void FixedUpdate()
     {
-        if (!GameStateManager.Instance.IsGameRunning)
+        if (!Manager.IsGameRunning)
             return;
 
         float movement = GetMovement();
@@ -50,17 +65,17 @@ public class Player : MonoBehaviour, IDamageable
         SetMotor(LeftMotor, 0 < movement, Mathf.Sign(rotation) == 1 && rotation != 0);
         SetMotor(RigthMotor, 0 < movement, Mathf.Sign(rotation) == -1 && rotation != 0);
 
-        RBody.AddForce((transform.forward * movement * GameStateManager.Instance.Settings.Player.MoveSpeed) - RBody.velocity, ForceMode.Force);
+        RBody.AddForce((transform.forward * movement * Settings.MoveSpeed) - RBody.velocity, ForceMode.Force);
     }
 
     private void Update()
     {
-        if (!GameStateManager.Instance.IsGameRunning)
+        if (!Manager.IsGameRunning)
             return;
 
         float rotation = GetRotation();
         Vector3 currentEulerRotation = transform.eulerAngles;
-        currentEulerRotation.y += rotation * Time.smoothDeltaTime * GameStateManager.Instance.Settings.Player.RotateSpeed;
+        currentEulerRotation.y += rotation * Time.smoothDeltaTime * Settings.RotateSpeed;
         transform.localEulerAngles = currentEulerRotation;
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -74,26 +89,36 @@ public class Player : MonoBehaviour, IDamageable
     public void Shoot()
     {
         Bullet bullet = Instantiate(BulletPrefab);
-        Vector3 spwanPosition = transform.position + transform.forward * GameStateManager.Instance.Settings.Bullet.ShottingDistance;
+        Vector3 spwanPosition = transform.position + transform.forward * bullet.ShootingDistance;
         bullet.Shooting(spwanPosition, transform.forward);
     }
 
-    public void AddScore() => Points += GameStateManager.Instance.Settings.Asteroid.HitPoints;
+    public void AddScore(int points)
+    {
+        Points += points;
+        ScoreUI.text = Points.ToString();
+    }
 
     public void TakeDamage()
     {
         Sound.Play();
         Health--;
         ResetPosition();
-        HealthUIManager.Instance.RemoveHealt();
+        HealthUI.RemoveHealt();
 
         if (Health == 0)
-            GameStateManager.Instance.EndGame(Points);
+            Manager.EndGame(Points);
         else
-            GameStateManager.Instance.PauseGame();
+            Manager.PauseGame();
     }
 
     public bool CreateExplosion() => false;
+
+    public bool IsSucessfullHit(out int hitPoints)
+    {
+        hitPoints = 0;
+        return false;
+    }
 
     private float GetRotation()
     {

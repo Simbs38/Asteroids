@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dc37f5e13a1bc4a8bd9f8ef0d492ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Camera: {fileID: 0}
 --- !u!114 &1643656406105096494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +97,7 @@ MonoBehaviour:
   MeshR: {fileID: 7689316685539690372}
   Sound: {fileID: 3240903037205908929}
   Collider: {fileID: 1643656406105096491}
+  ScreenTransporter: {fileID: 1643656406105096493}
 --- !u!82 &3240903037205908929
 AudioSource:
   m_ObjectHideFlags: 0
