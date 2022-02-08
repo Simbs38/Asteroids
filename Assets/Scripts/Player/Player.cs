@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
@@ -11,7 +14,7 @@ public class Player : MonoBehaviour, IDamageable
     public int Health { get; private set; }
 
     [SerializeField]
-    private Bullet BulletPrefab;
+    private AssetReference BulletPrefab;
 
     [SerializeField]
     private Rigidbody RBody;
@@ -42,6 +45,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField]
     private HealthUIManager HealthUI;
+
     private Queue<Bullet> _bulletPool;
 
     #endregion Fields
@@ -56,12 +60,7 @@ public class Player : MonoBehaviour, IDamageable
         HealthUI.PopulateHealtUI(Settings.StartingHealt);
         _bulletPool = new Queue<Bullet>();
 
-        for (int i = 0; i < Settings.BulletPoolSize; i++)
-        {
-            Bullet tmp = Instantiate(BulletPrefab);
-            _bulletPool.Enqueue(tmp);
-            tmp.Init(this);
-        }
+        Addressables.InitializeAsync().Completed += LoadAdressables;
     }
 
     private void FixedUpdate()
@@ -98,7 +97,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Shoot()
     {
-        if(_bulletPool.Count == 0)
+        if (_bulletPool.Count == 0)
             return;
 
         Bullet bullet = _bulletPool.Dequeue();
@@ -131,6 +130,23 @@ public class Player : MonoBehaviour, IDamageable
     {
         hitPoints = 0;
         return false;
+    }
+
+    private void LoadAdressables(AsyncOperationHandle<IResourceLocator> obj)
+    {
+        CreateBulletPool();
+
+    }
+
+    private void CreateBulletPool()
+    {
+        for (int i = 0; i < Settings.BulletPoolSize; i++)
+            BulletPrefab.InstantiateAsync(Vector3.zero, Quaternion.identity).Completed += (ans) =>
+            {
+                Bullet tmp = ans.Result.GetComponent<Bullet>();
+                _bulletPool.Enqueue(tmp);
+                tmp.Init(this);
+            };
     }
 
     private float GetRotation()

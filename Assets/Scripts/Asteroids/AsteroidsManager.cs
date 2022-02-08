@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public enum AsteroidType
 {
@@ -14,15 +15,15 @@ public class AsteroidsManager : MonoBehaviour
     #region Fields
 
     public int HitPoints => Settings.HitPoints;
+    
+    [SerializeField]
+    private AssetReference AsteroidBig;
 
     [SerializeField]
-    private Asteroid AsteroidBig;
+    private AssetReference AsteroidMedium;
 
     [SerializeField]
-    private Asteroid AsteroidMedium;
-
-    [SerializeField]
-    private Asteroid AsteroidSmall;
+    private AssetReference AsteroidSmall;
 
     [SerializeField]
     private AsteroidSettings Settings;
@@ -83,25 +84,27 @@ public class AsteroidsManager : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
 
             if (Manager.IsGameRunning)
-                _existingAsteroids.Add(CreateAsteroid());
+                CreateAsteroid();
         }
     }
 
-    private Asteroid CreateAsteroid()
+    private void CreateAsteroid()
     {
         float positionX = Random.Range(0, Screen.width);
         float positionY = Random.Range(0, Screen.height);
         GetScreenEdgePosition(ref positionX, ref positionY);
 
         Vector3 screenPosition = new Vector3(positionX, positionY, Camera.transform.position.y);
-        Asteroid prefab = GetAsteroidPrefabToGenerate();
-        Asteroid tmp = Instantiate(prefab);
-        tmp.InitAsteroid(Settings.AsteroidSpeed, GetAsteroidColor(tmp.Type), Camera, this);
+        AssetReference asteroidToClone = GetAsteroidPrefabToGenerate();
 
-        tmp.transform.position = Camera.ScreenToWorldPoint(screenPosition);
-        tmp.Direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
+        asteroidToClone.InstantiateAsync(Vector3.one * 1000, Quaternion.identity).Completed += (ans) => {
+            Asteroid ast = ans.Result.GetComponent<Asteroid>();
+            ast.InitAsteroid(Settings.AsteroidSpeed, GetAsteroidColor(ast.Type), Camera, this);
 
-        return tmp;
+            ast.transform.position = Camera.ScreenToWorldPoint(screenPosition);
+            ast.Direction = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
+            _existingAsteroids.Add(ast);
+        };
     }
 
     private void GetScreenEdgePosition(ref float positionX, ref float positionY)
@@ -114,10 +117,8 @@ public class AsteroidsManager : MonoBehaviour
             positionY = edgeXAxis < 3 ? 0 : Screen.height;
     }
 
-    private Asteroid GetAsteroidPrefabToGenerate()
+    private AssetReference GetAsteroidPrefabToGenerate()
     {
-        Asteroid ans = AsteroidBig;
-
         if (Settings.GenerateRandomSizeAsteroids)
         {
             int option = Random.Range(0, 3);
@@ -125,16 +126,16 @@ public class AsteroidsManager : MonoBehaviour
             switch (option)
             {
                 case 0:
-                    ans = AsteroidSmall;
-                    break;
+                    return AsteroidSmall;
 
                 case 1:
-                    ans = AsteroidMedium;
-                    break;
+                    return AsteroidMedium;
+                default:
+                    return AsteroidBig;
             }
         }
-
-        return ans;
+        else
+            return AsteroidBig;
     }
 
     private Color GetAsteroidColor(AsteroidType type)

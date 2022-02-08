@@ -1108,7 +1108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 550, y: 0}
+  m_AnchoredPosition: {x: 549.99994, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &762650947
@@ -3220,7 +3220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -550, y: 0}
+  m_AnchoredPosition: {x: -549.99994, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &1984549249
@@ -3628,9 +3628,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b12c22482f47f74ba6b437ef3f97029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AsteroidBig: {fileID: 613993389580480742, guid: fcb5606c04604424db6a4d224fa8557c, type: 3}
-  AsteroidMedium: {fileID: 2675936494571516591, guid: 858c7ce500e25a640b8e1019153337e1, type: 3}
-  AsteroidSmall: {fileID: 1643656406105096494, guid: 4a1708f71dddc5e4587cbec01add04b9, type: 3}
+  AsteroidBig:
+    m_AssetGUID: fcb5606c04604424db6a4d224fa8557c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  AsteroidMedium:
+    m_AssetGUID: 858c7ce500e25a640b8e1019153337e1
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  AsteroidSmall:
+    m_AssetGUID: 4a1708f71dddc5e4587cbec01add04b9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   Settings: {fileID: 11400000, guid: 7c5ec68ede3df1049a2b5b9572f51719, type: 2}
   Camera: {fileID: 963194227}
   Manager: {fileID: 2012396077}
@@ -3705,6 +3717,14 @@ PrefabInstance:
       propertyPath: CurrentJoystick
       value: 
       objectReference: {fileID: 922025837}
+    - target: {fileID: 4477492020818107011, guid: c421501a80904a844acbf211b892da0e, type: 3}
+      propertyPath: tmp.m_AssetGUID
+      value: f3dc629ff91b3634a9cce6f84ee4b8d3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477492020818107011, guid: c421501a80904a844acbf211b892da0e, type: 3}
+      propertyPath: BulletPrefab.m_AssetGUID
+      value: f3dc629ff91b3634a9cce6f84ee4b8d3
+      objectReference: {fileID: 0}
     - target: {fileID: 4477492020818107022, guid: c421501a80904a844acbf211b892da0e, type: 3}
       propertyPath: Camera
       value: 

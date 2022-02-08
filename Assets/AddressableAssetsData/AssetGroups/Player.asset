@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  m_GroupName: Player
+  m_Data:
+    m_SerializedData: []
+  m_GUID: dcdf2d8702e8ff148b72fb12e1d5024e
+  m_SerializeEntries:
+  - m_GUID: f3dc629ff91b3634a9cce6f84ee4b8d3
+    m_Address: Player/Bullet/BulletPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b6342e3a44c961c4f9aae688dc5351de
+    m_Address: Player/Bullet/BulletExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5810ca5e5cd38e342979e6acb4965598
+    m_Address: Player/Bullet/BulletExplosionMaterial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6d45d67e81159db44a93f1334ebc4d43
+    m_Address: Player/Bullet/BulletMaterial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5b92857751076c149a4b1fff7040d6f9
+    m_Address: Player/Bullet/BulletSpazzMaterial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0d6a7fda33660f043a38f2d3771d10fd
+    m_Address: Player/MotorFlameMaterial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c421501a80904a844acbf211b892da0e
+    m_Address: Player/Player
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4ee8cb4a008a44749b994ab18400fafc
+    m_Address: Player/SpaceShipMaterial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 955abd55a05b6f341893d8689e75aaf4, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a3183bfcb96813d4f8684f090ba97044, type: 2}
+    - {fileID: 11400000, guid: a51af2b9f76fbf849920a1226c1ee8ef, type: 2}

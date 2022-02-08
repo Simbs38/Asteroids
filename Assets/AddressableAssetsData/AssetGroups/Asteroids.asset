@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Asteroids
+  m_EditorClassIdentifier: 
+  m_GroupName: Asteroids
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c6d4d9e4052cdb84cbdb718c6595c248
+  m_SerializeEntries:
+  - m_GUID: b33a9f1e0493c4244b533010c640e942
+    m_Address: Asteroids/AsteroidBig/AsteroidBig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fcb5606c04604424db6a4d224fa8557c
+    m_Address: Asteroids/AsteroidBig/AsteroidBig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b1e1f633983f8374cb3e337f3fe3dcd6
+    m_Address: Asteroids/AsteroidMedium/AsteroidMedium
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 858c7ce500e25a640b8e1019153337e1
+    m_Address: Asteroids/AsteroidMedium/AsteroidMedium
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 076b8136a491893409e24c6fa5d7c969
+    m_Address: Asteroids/AsteroidSmall/AsteroidSmall
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4a1708f71dddc5e4587cbec01add04b9
+    m_Address: Asteroids/AsteroidSmall/AsteroidSmall
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 955abd55a05b6f341893d8689e75aaf4, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2ebd3bbc3b08507478f83757d30fcfa7, type: 2}
+    - {fileID: 11400000, guid: 29aef014d18ec4443ac298dd43fd44bf, type: 2}
